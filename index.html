@@ -1,0 +1,1258 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="백엔드 개발자 장효원의 포트폴리오 — SSUport, 캥거루틴, 싹싹푸드 등 실제로 쓰이는 서비스를 만들고 운영한 기록.">
+<meta property="og:title" content="장효원 Portfolio">
+<meta property="og:description" content="백엔드 개발자 장효원의 포트폴리오 — SSUport, 캥거루틴, 싹싹푸드 등 실제로 쓰이는 서비스를 만들고 운영한 기록.">
+<meta property="og:image" content="assets/cv_ssu.webp">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231b86ec'/%3E%3Ctext x='16' y='22' font-size='15' font-family='Arial' font-weight='700' fill='white' text-anchor='middle'%3EH%3C/text%3E%3C/svg%3E">
+<title>장효원 Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: case-study template — sticky top nav, roomy white sections, one blue accent, light-blue bands to separate chapters */
+:root{
+  --bg:#ffffff;
+  --band:#f5f9ff;
+  --surface:#ffffff;
+  --line:#e3e9f3;
+  --fg:#252b42;
+  --fg-2:#5b6278;
+  --fg-3:#8b91a4;
+  --accent:#1b86ec;
+  --accent-soft:#e7f2fe;
+  --accent-ink:#ffffff;
+  --done:#1f9d6b; --done-soft:#e4f6ee;
+  --plan:#e8655f; --plan-soft:#fdecea;
+  --code-bg:#252b42; --code-fg:#dfe6f5; --code-key:#7cc3ff; --code-str:#b6e3a8; --code-num:#ffc98a;
+  --shadow:0 18px 40px -24px rgba(37,43,66,.35);
+  --display:"Poppins","Noto Sans KR",system-ui,sans-serif;
+  --body:"Noto Sans KR","Poppins",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1424;--band:#141b2f;--surface:#18203a;--line:#26304d;--fg:#e8ecf6;--fg-2:#aab2c8;--fg-3:#7b84a0;
+  --accent:#5cb1f7;--accent-soft:#1a2c4a;--accent-ink:#0f1424;--done:#4fd09a;--done-soft:#153429;--plan:#f2877f;--plan-soft:#3a1f22;
+  --code-bg:#0b1020;--shadow:0 18px 40px -24px rgba(0,0,0,.7);color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1424;--band:#141b2f;--surface:#18203a;--line:#26304d;--fg:#e8ecf6;--fg-2:#aab2c8;--fg-3:#7b84a0;
+  --accent:#5cb1f7;--accent-soft:#1a2c4a;--accent-ink:#0f1424;--done:#4fd09a;--done-soft:#153429;--plan:#f2877f;--plan-soft:#3a1f22;
+  --code-bg:#0b1020;--shadow:0 18px 40px -24px rgba(0,0,0,.7);color-scheme:dark}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:anywhere}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--display);margin:0;line-height:1.3;letter-spacing:-.01em}
+p{margin:0}
+ul{margin:0;padding-left:1.1em}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.narrow{max-width:820px}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.brand{font-family:var(--display);font-weight:600;font-size:17px;letter-spacing:-.01em;white-space:nowrap;text-decoration:none}
+.brand i{width:28px;height:28px;border-radius:8px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-style:normal;font-size:13px;font-weight:700}
+.menu{display:flex;gap:4px;align-items:center}
+.menu a{font-family:var(--display);font-size:15px;font-weight:500;text-decoration:none;color:var(--fg-2);padding:8px 14px;border-radius:999px}
+.menu a:hover{color:var(--fg)}
+.menu a[aria-current="page"]{color:var(--accent);background:var(--accent-soft)}
+.nav-soc{display:flex;gap:2px;margin-left:8px;padding-left:10px;border-left:1px solid var(--line)}
+.nav-soc a{width:36px;height:36px;display:grid;place-items:center;border-radius:999px;color:var(--fg-2)}
+.nav-soc a:hover{background:var(--band);color:var(--fg)}
+.nav-soc a.ts{color:#eb531f}
+@media (max-width:640px){.nav-soc{display:none}}
+.theme-btn{border:1px solid var(--line);background:transparent;color:var(--fg-2);width:36px;height:36px;border-radius:999px;cursor:pointer;margin-left:6px;font-size:15px}
+@media (max-width:560px){.nav .wrap{gap:8px}.menu{gap:0}.menu a{padding:7px 6px;font-size:13px}.brand{font-size:13.5px}.theme-btn{margin-left:2px;width:32px;height:32px}.sc-cap{font-size:11.5px;padding:9px 12px;gap:6px;flex-wrap:wrap}.sc-cap b{font-size:13.5px}}
+.menu a{white-space:nowrap}
+@media (max-width:400px){.menu a{padding:7px 4px;font-size:12.5px}.brand{font-size:13px}.theme-btn{display:none}}
+
+section{padding-block:88px}
+.band{background:var(--band)}
+.eyebrow{display:block;font-family:var(--display);font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.sec-head{display:flex;flex-direction:column;gap:10px;margin-bottom:40px}
+.sec-head h2{font-size:clamp(28px,4vw,40px);font-weight:600}
+.sec-head p{color:var(--fg-2)}
+.center{text-align:center;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--display);font-weight:500;font-size:15px;padding:13px 22px;border-radius:12px;text-decoration:none;border:1px solid transparent;cursor:pointer}
+.btn-primary{background:var(--accent);color:var(--accent-ink)}
+.btn-ghost{border-color:var(--line);color:var(--fg);background:var(--surface)}
+.btn:hover{transform:translateY(-1px)}
+@media (prefers-reduced-motion:no-preference){.btn{transition:transform .15s}.card{transition:transform .2s,box-shadow .2s}}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500;padding:5px 12px;border-radius:999px;background:var(--accent-soft);color:var(--accent);white-space:nowrap}
+.tag{font-family:var(--mono);font-size:12.5px;padding:3px 9px;border-radius:6px;background:var(--band);color:var(--fg-2);border:1px solid var(--line);max-width:100%}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.u{text-decoration:underline;text-decoration-color:var(--accent);text-decoration-thickness:2px;text-underline-offset:5px;font-weight:700}
+
+/* hero */
+.hero{padding-block:96px 80px}
+.hero .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:center}
+.hero-top{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.hero-links{display:flex;gap:14px}
+.hero-links a{display:inline-flex;align-items:center;gap:6px;font:500 14px var(--display);color:var(--fg-2);text-decoration:none}
+.hero-links a:hover{color:var(--accent)}
+.hero-links a.ts svg{color:#eb531f}
+.hero-links svg{width:18px;height:18px}
+.hero h1{font-size:clamp(30px,4.2vw,42px);font-weight:700;margin:18px 0 22px;line-height:1.32}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .lead{font-size:18px;color:var(--fg-2);max-width:34em}
+.hero .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+.stack-shots{position:relative;aspect-ratio:1/0.95;max-width:100%;min-width:0}
+.shot-card{position:absolute;width:84%;display:flex;flex-direction:column;border-radius:18px;overflow:hidden;box-shadow:0 26px 50px -26px rgba(37,43,66,.4);border:1px solid var(--line);background:var(--surface);text-decoration:none;color:var(--fg)}
+.shot-card img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+.shot-card.s1{top:0;right:0;z-index:2}
+.shot-card.s2{bottom:0;left:0;z-index:1}
+.sc-cap{display:flex;align-items:baseline;gap:10px;padding:12px 16px;border-top:1px solid var(--line);font-size:13px;color:var(--fg-3)}
+.sc-cap b{font:600 15px var(--display);color:var(--fg);white-space:nowrap}
+@media (prefers-reduced-motion:no-preference){.shot-card{transition:transform .25s}.shot-card:hover{transform:translateY(-6px)}}
+.shot-card:hover{z-index:3}
+.resp{background:var(--code-bg);color:var(--code-fg);border-radius:20px;padding:22px 24px;font-family:var(--mono);font-size:13.5px;line-height:1.75;box-shadow:var(--shadow);min-width:0;overflow-x:auto}
+.resp .bar{display:flex;align-items:center;gap:10px;margin-bottom:14px;color:#9aa4bf;font-size:12.5px}
+.resp .bar b{background:#1f9d6b;color:#fff;border-radius:6px;padding:1px 8px;font-weight:500}
+.resp pre{margin:0;white-space:pre}
+.k{color:var(--code-key)}.s{color:var(--code-str)}.n{color:var(--code-num)}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr;gap:40px}}
+
+/* claims */
+.claims{display:grid;gap:40px}
+.claim{display:grid;grid-template-columns:200px 1fr;gap:24px;align-items:start;padding-bottom:40px;border-bottom:1px solid var(--line)}
+.claim:last-child{border-bottom:0;padding-bottom:0}
+.claim .big{font-family:var(--display);font-size:44px;font-weight:700;color:var(--accent);line-height:1;font-variant-numeric:tabular-nums}
+.claim .big small{display:block;font-size:13px;font-weight:500;color:var(--fg-3);margin-top:10px;letter-spacing:0}
+.claim h3{font-size:22px;font-weight:600;margin-bottom:8px}
+.claim p{color:var(--fg-2);font-size:17px}
+.claim p b{color:var(--fg)}
+@media (max-width:640px){.claim{grid-template-columns:1fr;gap:12px}}
+
+/* project cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;overflow:hidden;text-decoration:none;display:flex;flex-direction:column;cursor:pointer}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.cover{aspect-ratio:16/9;max-width:100%;position:relative;overflow:hidden;background:var(--band);border-bottom:1px solid var(--line)}
+.cover img{width:100%;height:100%;object-fit:cover;display:block}
+.cs-cover{border:1px solid var(--line)}
+.cover .soon{position:absolute;top:14px;left:14px;font-size:12px;background:rgba(255,255,255,.9);color:#252b42;padding:3px 10px;border-radius:999px;font-weight:500}
+.card-body{padding:22px 22px 24px;display:flex;flex-direction:column;gap:10px;flex:1}
+.card-meta{display:flex;justify-content:space-between;gap:10px;font-size:13px;color:var(--fg-3);font-variant-numeric:tabular-nums}
+.card h3{font-size:20px;font-weight:600}
+.card .sub{color:var(--fg-2);font-size:15px}
+.card .award{font-size:13px;color:var(--accent);font-weight:500}
+.card .tags{margin-top:auto;padding-top:8px}
+
+.sub-head{margin:64px 0 24px;padding-top:32px;border-top:1px solid var(--line);display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.sub-head h3{font-size:22px;font-weight:600}
+.sub-head p{color:var(--fg-3);font-size:15px}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:28px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--fg-2);font:500 14px var(--display);padding:7px 15px;border-radius:999px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.sort{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--fg-3)}
+.sort select{font:500 14px var(--body);color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:7px 10px}
+.count{font-size:14px;color:var(--fg-3);margin-bottom:16px}
+
+/* case study */
+.cs-hero{padding-block:56px 64px}
+.back{display:inline-flex;gap:6px;font-size:14px;color:var(--fg-3);text-decoration:none;margin-bottom:28px}
+.back:hover{color:var(--accent)}
+.cs-hero .wrap>.top{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+.cs-hero h1{font-size:clamp(34px,5vw,52px);font-weight:700;margin:14px 0 12px}
+.cs-hero .tagline{font-size:19px;color:var(--fg-2)}
+.cs-hero .award{margin-top:18px}
+.cs-cover{border-radius:24px;overflow:hidden}
+@media (max-width:860px){.cs-hero .wrap>.top{grid-template-columns:1fr}}
+.meta{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);border-radius:16px;margin-top:44px;background:var(--surface)}
+.meta div{padding:18px 20px;border-right:1px solid var(--line);min-width:0}
+.meta div:last-child{border-right:0}
+.meta dt{font-size:12.5px;color:var(--fg-3);font-weight:500;letter-spacing:.04em;margin-bottom:4px}
+.meta dd{margin:0;font-weight:500;font-size:15px}
+@media (max-width:640px){.meta{grid-template-columns:1fr}.meta div{border-right:0;border-bottom:1px solid var(--line)}.meta div:last-child{border-bottom:0}}
+.stack-row{display:flex;gap:16px;align-items:flex-start;margin-top:18px;flex-wrap:wrap}
+.stack-row .lbl{font-size:13px;color:var(--fg-3);padding-top:3px;min-width:60px}
+.stack-row .tags{flex:1;min-width:0}
+.links{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.links a,.links span{font-size:14px;padding:7px 14px;border-radius:10px;border:1px solid var(--line);text-decoration:none;background:var(--surface)}
+.links a{color:var(--accent);font-weight:500}
+.links span{color:var(--fg-3);border-style:dashed}
+
+.toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 64px);z-index:40;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.toc .wrap{display:flex;gap:6px;overflow-x:auto;padding-block:10px;scrollbar-width:none}
+.toc button{flex:none;border:0;background:none;font:500 14px var(--body);color:var(--fg-3);padding:6px 12px;border-radius:8px;cursor:pointer}
+.toc button:hover{color:var(--accent);background:var(--accent-soft)}
+
+.overview{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:56px;align-items:start}
+.overview h2{font-size:clamp(22px,2.6vw,26px);font-weight:600;margin:8px 0 16px}
+.why p{color:var(--fg-2);font-size:15.5px;line-height:1.75}
+.why p+p{margin-top:10px}
+.why .goal{margin-top:20px;padding:14px 16px;border-left:3px solid var(--accent);background:var(--band);border-radius:0 10px 10px 0;color:var(--fg);font-weight:500}
+.why .goal b{display:block;font-size:12.5px;color:var(--accent);font-weight:600;letter-spacing:.04em;margin-bottom:2px}
+.voice{margin:0 0 16px;font-family:var(--display);font-size:clamp(17px,2vw,19px);font-weight:600;color:var(--fg);line-height:1.5}
+.ov-tables{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:28px;margin-top:56px}
+.ov-t h3{font-size:17px;font-weight:600;margin-bottom:12px}
+.ov-t .tbl{margin-top:0;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.ov-t table{min-width:0}
+.tbl tbody th{font-weight:600;color:var(--fg);font-size:14.5px;white-space:nowrap}
+.tbl tr:last-child td,.tbl tr:last-child th{border-bottom:0}
+.tnote{color:var(--fg-3);font-size:13.5px;margin-top:10px}
+.op-sub{color:var(--fg-3);font-size:14.5px;margin-top:4px}
+.op-list{margin-top:10px;display:grid;gap:6px}
+.r-no{font-family:var(--display);font-weight:600;color:var(--accent);font-size:14px}
+.retro .take{padding-top:12px;border-top:1px solid var(--line);color:var(--fg);font-weight:500}
+.retro .take::before{content:"→ ";color:var(--accent)}
+.tr-no{display:block;margin-bottom:10px}
+.star li ul{margin-top:8px;display:grid;gap:6px;padding-left:1.1em;list-style:disc}
+.cs-sum{margin-top:16px;color:var(--fg-2);font-size:16px;max-width:39em}
+.hl{list-style:none;padding:0;margin:0;display:grid;gap:0;border:1px solid var(--line);border-radius:16px;background:var(--surface);overflow:hidden}
+.hl li{display:grid;grid-template-columns:28px 1fr;gap:14px;padding:18px 22px;border-top:1px solid var(--line)}
+.hl li:first-child{border-top:0}
+.hl .ck{width:24px;height:24px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-size:13px;font-weight:700;margin-top:2px}
+.hl b{display:block;font-family:var(--display);font-weight:600;font-size:17px;line-height:1.4}
+.hl p{color:var(--fg-2);font-size:14.5px;margin-top:4px}
+.hl-empty{color:var(--fg-3);font-size:15px;padding:18px 22px;border:1px dashed var(--line);border-radius:16px}
+.results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border:1px solid var(--line);border-radius:18px;background:var(--surface);overflow:hidden}
+.result{padding:22px 24px 24px;border-top:1px solid var(--line);border-left:1px solid var(--line);min-width:0}
+.result:nth-child(-n+2){border-top:0}
+.result:nth-child(odd){border-left:0}
+.result:last-child:nth-child(odd){grid-column:1/-1}
+.result dt{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:var(--fg-3);letter-spacing:.02em}
+.result dt::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.result dd{margin:0}
+.result .v{display:block;font-family:var(--display);font-size:clamp(22px,2.6vw,27px);font-weight:700;color:var(--fg);line-height:1.25;margin:10px 0 6px;font-variant-numeric:tabular-nums}
+.result .d{display:block;color:var(--fg-2);font-size:14.5px;line-height:1.6}
+@media (max-width:900px){.overview{grid-template-columns:1fr;gap:28px}}
+@media (max-width:520px){.results{grid-template-columns:1fr}.result{border-left:0!important;border-top:1px solid var(--line)!important}.result:first-child{border-top:0!important}}
+
+.fx-group+.fx-group{margin-top:72px}
+.fx-gh{font-size:20px;font-weight:600;margin-bottom:24px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.fx-list{display:grid;gap:48px}
+.fx{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:48px;align-items:center}
+.fx:nth-child(even) .fx-text{order:2}
+.fx.small{grid-template-columns:minmax(0,1fr) minmax(0,.8fr)}
+.fx-text{display:flex;flex-direction:column;align-items:flex-start;gap:10px;min-width:0}
+.fx-no{font-family:var(--display);font-weight:600;color:var(--accent);font-size:14px}
+.fx-text h3{font-size:22px;font-weight:600}
+.fx-tag{font:500 12.5px var(--mono);color:var(--fg-3)}
+.fx-text p{color:var(--fg-2);font-size:16px}
+.fx-img{all:unset;box-sizing:border-box;cursor:zoom-in;display:block;position:relative;width:100%;max-width:600px;justify-self:center;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#fff}
+.fx-img img{display:block;width:100%;height:auto}
+.fx-img.tall{max-height:400px}
+.fx-img.tall::after{content:"";position:absolute;inset:auto 0 0 0;height:90px;background:linear-gradient(transparent,rgba(255,255,255,.95))}
+.fx-img .more{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);z-index:1;font:500 13px var(--body);color:#1b86ec;background:#fff;border:1px solid #cfe0f7;border-radius:999px;padding:5px 12px;white-space:nowrap}
+.fx-img:focus-visible,.fxp-img:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+@media (max-width:820px){.fx,.fx.small{grid-template-columns:1fr;gap:18px}.fx:nth-child(even) .fx-text{order:0}}
+.fx-phones{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:36px 28px}
+.fxp{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+.fxp-img{all:unset;box-sizing:border-box;cursor:zoom-in;display:block;width:100%;max-width:240px;border-radius:22px;overflow:hidden;border:1px solid var(--line);margin-bottom:8px;background:#111}
+.fxp-img img{display:block;width:100%;height:auto}
+.fxp h3{font-size:18px;font-weight:600}
+.fxp p{color:var(--fg-2);font-size:15px}
+.fx-rest{margin-top:48px}
+.screens-head{margin:72px 0 32px;padding-top:40px;border-top:1px solid var(--line);display:grid;gap:6px}
+.screens-head h3{font-size:22px;font-weight:600}
+.screens-head p{color:var(--fg-2);font-size:15px}
+.arch-img{all:unset;cursor:zoom-in;display:block;max-width:920px;margin-inline:auto;box-sizing:border-box;background:#fff;border:1px solid var(--line);border-radius:20px;padding:clamp(12px,3vw,32px)}
+.arch-img:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.arch-img img{display:block;width:100%;max-width:820px;height:auto;margin:0 auto}
+.screens{display:grid;gap:56px}
+.shot{display:grid;gap:16px;margin:0 auto;max-width:920px;width:100%}
+.shot.half{max-width:540px}
+.shot-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px;max-width:640px;margin-inline:auto;width:100%}
+@media (max-width:560px){.shot-row{gap:16px}}
+.shot button{all:unset;cursor:zoom-in;display:block;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--band)}
+.shot button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.shot img{display:block;width:100%;height:auto}
+.shot figcaption{display:grid;gap:6px;max-width:51em}
+.shot .cap-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.shot h4{font-size:17px;font-weight:600}
+.shot p{color:var(--fg-2);font-size:15px}
+.mine{font-size:12.5px;font-weight:500;padding:3px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent)}
+.svc{font-size:12.5px;font-weight:500;padding:3px 10px;border-radius:999px;background:var(--band);color:var(--fg-3);border:1px solid var(--line)}
+.lightbox{position:fixed;inset:0;z-index:80;background:rgba(10,14,26,.88);display:flex;align-items:safe center;justify-content:center;overflow:auto;padding:calc(24px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));cursor:zoom-out}
+.lightbox img{max-width:min(100%,1200px);height:auto;border-radius:10px;margin:auto}
+.lightbox button{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:calc(14px + env(safe-area-inset-right,0px));background:#fff;color:#252b42;border:0;border-radius:999px;width:40px;height:40px;font-size:20px;cursor:pointer}
+
+.problem{border:1.5px solid var(--accent);border-radius:4px;padding:44px clamp(20px,5vw,64px);text-align:center;position:relative}
+.problem::before,.problem::after,.problem i::before,.problem i::after{content:"";position:absolute;width:10px;height:10px;border:1.5px solid var(--accent);background:var(--bg)}
+.problem::before{top:-6px;left:-6px}.problem::after{top:-6px;right:-6px}.problem i::before{bottom:-6px;left:-6px}.problem i::after{bottom:-6px;right:-6px}
+.problem h2{font-size:clamp(24px,3.4vw,34px);font-weight:600;margin-bottom:18px}
+.problem p{color:var(--fg-2);font-size:17px;max-width:48em;margin:0 auto}
+.problem p+p{margin-top:12px}
+.problem blockquote{margin:20px auto 0;font-family:var(--display);font-size:19px;font-weight:600;color:var(--fg);max-width:34em}
+
+.feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.feat div{padding:26px 24px;border-radius:16px;background:var(--surface);border:1px solid var(--line)}
+.feat .ic{width:44px;height:44px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-family:var(--display);font-weight:700;margin-bottom:16px;font-size:15px}
+.feat h4{font-size:17px;font-weight:600;margin-bottom:6px}
+.feat p{color:var(--fg-2);font-size:15px}
+
+.arch{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:32px clamp(16px,4vw,40px);overflow-x:auto}
+.arch-inner{min-width:520px;display:flex;flex-direction:column;align-items:center;gap:0}
+.arow{display:flex;gap:14px;justify-content:center;width:100%}
+.node{flex:1;max-width:280px;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;text-align:center;background:var(--bg)}
+.node b{display:block;font-family:var(--display);font-size:14.5px;font-weight:600}
+.node small{display:block;color:var(--fg-3);font-size:12.5px;line-height:1.5;margin-top:2px}
+.node.hl{border-color:var(--accent);background:var(--accent-soft)}
+.node.hl b{color:var(--accent)}
+.arrow{height:28px;width:2px;background:var(--line);position:relative}
+.arrow::after{content:"";position:absolute;bottom:-1px;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--fg-3)}
+.pipe{margin-top:26px;padding-top:20px;border-top:1px dashed var(--line);display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;font-family:var(--mono);font-size:12.5px;color:var(--fg-2)}
+.pipe span{padding:4px 10px;border-radius:6px;background:var(--band);border:1px solid var(--line)}
+.pipe em{font-style:normal;color:var(--fg-3)}
+.arch-legend{font-size:13px;color:var(--fg-3);margin-top:14px;text-align:center}
+.points{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px 32px;margin-top:32px}
+.points div{display:grid;grid-template-columns:28px 1fr;gap:4px 12px}
+.points .no{font-family:var(--display);font-weight:600;color:var(--accent);font-size:15px;grid-row:span 2}
+.points h4{font-size:16px;font-weight:600}
+.points p{color:var(--fg-2);font-size:15px}
+
+.work{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.work>div{padding:26px;border-radius:16px;background:var(--surface);border:1px solid var(--line)}
+.work h4{font-size:17px;font-weight:600;margin-bottom:4px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.work h4 small{font:400 13px var(--body);color:var(--fg-3)}
+.work ul{margin-top:12px;display:grid;gap:8px;color:var(--fg-2);font-size:15px}
+.work li::marker{color:var(--accent)}
+.work li b{color:var(--fg);font-weight:500}
+
+.tr-list{display:grid;gap:28px}
+.tr{background:var(--surface);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.tr-head{padding:28px clamp(20px,4vw,36px) 24px}
+.tr-head .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.tr-no{font-family:var(--display);font-weight:600;color:var(--fg-3);font-size:14px}
+.status{font-size:12.5px;font-weight:500;padding:3px 10px;border-radius:999px}
+.status.done{background:var(--done-soft);color:var(--done)}
+.status.plan{background:var(--plan-soft);color:var(--plan)}
+.tr h3{font-size:clamp(19px,2.4vw,23px);font-weight:600}
+.tr-sum{display:grid;grid-template-columns:auto 1fr;gap:10px 18px;margin-top:20px;font-size:15.5px}
+.tr-sum dt{font-weight:700;font-size:13.5px;color:var(--accent);padding-top:2px;white-space:nowrap}
+.tr-sum dd{margin:0;color:var(--fg-2);min-width:0}
+.ov-t{min-width:0}
+.tr details{border-top:1px solid var(--line)}
+.tr details{border-top:0;padding:0 clamp(20px,4vw,36px) 4px}
+.tr summary{list-style:none;cursor:pointer;margin:0 0 20px;padding:12px 14px 12px 18px;border-radius:12px;background:var(--accent-soft);color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 22%,transparent);font:600 15px var(--body);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.tr summary:hover{border-color:var(--accent)}
+.tr summary::-webkit-details-marker{display:none}
+.tr summary small{font-weight:400;color:var(--fg-3);font-size:13px;margin-left:10px}
+.tr summary .chev{width:30px;height:30px;border-radius:50%;background:var(--surface);color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);display:grid;place-items:center;flex:none}
+@media (prefers-reduced-motion:no-preference){.tr summary .chev{transition:transform .2s}}
+.tr details[open] summary .chev{transform:rotate(180deg)}
+.tr summary .t-close{display:none}
+.tr details[open] summary .t-open{display:none}
+.tr details[open] summary .t-close{display:inline}
+.star{padding:4px 0 30px;display:grid;gap:20px}
+.star .step{display:grid;grid-template-columns:44px 1fr;gap:14px}
+.star .lt{width:36px;height:36px;border-radius:10px;background:var(--fg);color:var(--bg);display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:15px}
+.star .step>div{min-width:0}
+.star h5{font-size:14px;margin:6px 0 6px;color:var(--fg-3);font-weight:500}
+.star p,.star li{color:var(--fg-2);font-size:15.5px}
+.star ul{display:grid;gap:8px}
+.star li b{color:var(--fg);font-weight:600}
+.lesson{margin:0 clamp(20px,4vw,36px) 28px;padding:18px 20px;border-radius:12px;background:var(--band);font-size:15.5px}
+.lesson b{color:var(--accent);margin-right:8px;font-size:13.5px}
+code{font-family:var(--mono);font-size:.88em;background:var(--band);border:1px solid var(--line);padding:1px 6px;border-radius:5px;color:var(--fg)}
+pre.sql{background:var(--code-bg);color:var(--code-fg);border-radius:10px;padding:14px 16px;font:13px/1.6 var(--mono);overflow-x:auto;margin:10px 0 0}
+.tbl{overflow-x:auto;margin-top:10px}
+.tbl table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:440px}
+.tbl th,.tbl td{border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+.tbl th{font-weight:500;color:var(--fg-3);font-size:13px}
+
+.retro{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.retro>div{padding:28px;border-radius:16px;background:var(--surface);border:1px solid var(--line);display:flex;flex-direction:column;gap:12px}
+.retro h4{font-size:18px;font-weight:600}
+.retro p{color:var(--fg-2);font-size:15.5px}
+.retro .next{padding-top:12px;border-top:1px solid var(--line)}
+.retro .next b{color:var(--accent);font-size:13.5px;display:block;margin-bottom:4px}
+
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.pager a{padding:22px 24px;border:1px solid var(--line);border-radius:16px;text-decoration:none;background:var(--surface)}
+.pager a:hover{border-color:var(--accent)}
+.pager small{display:block;color:var(--fg-3);font-size:13px}
+.pager b{font-family:var(--display);font-size:18px;font-weight:600}
+.pager a:last-child{text-align:right}
+
+/* about */
+.about-top{display:grid;grid-template-columns:300px 1fr;gap:56px;align-items:start}
+.page-head-gap{}
+.photo{border-radius:24px;overflow:hidden;background:var(--band);aspect-ratio:3/4;max-width:100%}
+.photo img{width:100%;height:100%;object-fit:cover;display:block}
+.about-top h1{font-size:clamp(28px,4vw,40px);font-weight:600;margin:10px 0 20px}
+.about-top .lead p{color:var(--fg-2);font-size:17px;max-width:45em}
+.about-top .lead p+p{margin-top:14px}
+.proof{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:22px 0;padding:16px 20px;border-radius:14px;background:var(--band);border:1px solid var(--line)}
+.proof-k{font:600 13px var(--display);color:var(--accent);letter-spacing:.02em}
+.proof ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px 22px}
+.proof li{color:var(--fg-2);font-size:15px}
+.proof li b{color:var(--fg);font-weight:600}
+.about-top .lead p+p{margin-top:14px}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 28px;margin-top:32px;padding-top:28px;border-top:1px solid var(--line)}
+.facts dt{font-size:13px;color:var(--fg-3)}
+.facts dd{margin:2px 0 0;font-weight:500}
+@media (max-width:820px){.about-top{grid-template-columns:1fr}.photo{max-width:260px}}
+.skills{display:grid;gap:0;border-top:1px solid var(--line)}
+.skill{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:28px;padding-block:28px;border-bottom:1px solid var(--line)}
+.skill h3{font-size:19px;font-weight:600}
+.lv-legend{list-style:none;margin:-12px 0 36px;padding:14px 18px;display:flex;flex-wrap:wrap;gap:10px 28px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.lv-legend li{display:flex;align-items:center;gap:10px;font-size:14.5px;color:var(--fg-2)}
+.lv-b{font-size:12px;font-weight:600;padding:3px 0;width:38px;text-align:center;border-radius:6px}
+.lv{margin:14px 0 0;display:grid;gap:10px}
+.lv-row{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start}
+.lv-row:not(:has(dt)){grid-template-columns:1fr}
+.lv dt{font-size:12px;font-weight:600;padding:3px 0;width:38px;text-align:center;border-radius:6px}
+.lv-hi{background:color-mix(in srgb,var(--accent) 22%,var(--surface));color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 35%,transparent)}
+.lv-mid{background:var(--accent-soft);color:var(--accent);opacity:.85}
+.lv-exp{background:var(--band);color:var(--fg-3);border:1px solid var(--line)}
+.lv dd{margin:0}
+.skill ul{display:grid;gap:12px;color:var(--fg-2);font-size:15.5px}
+.skill li::marker{color:var(--accent)}
+.skill li b{color:var(--fg);font-weight:600}
+.skill li em{font-style:normal;color:var(--accent);font-size:12.5px;font-weight:500;background:var(--accent-soft);padding:1px 7px;border-radius:5px;white-space:nowrap;margin-left:4px}
+@media (max-width:760px){.skill{grid-template-columns:1fr;gap:14px}}
+.tl{display:grid;gap:0}
+.tl-item{display:grid;grid-template-columns:170px 1fr;gap:24px;padding-block:22px;border-bottom:1px solid var(--line)}
+.tl-item time{font-size:14px;color:var(--fg-3);font-variant-numeric:tabular-nums;padding-top:2px}
+.tl-item h4{font-size:17px;font-weight:600}
+.tl-item .r{color:var(--fg-3);font-size:14px;margin-top:2px}
+.tl-item ul{margin-top:10px;color:var(--fg-2);font-size:15px;display:grid;gap:6px}
+@media (max-width:640px){.tl-item{grid-template-columns:1fr;gap:6px}}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+@media (max-width:820px){.two{grid-template-columns:1fr}}
+.mini h3{font-size:22px;font-weight:600;margin-bottom:14px}
+.mini .tl-item{grid-template-columns:120px 1fr}
+
+/* contact */
+.contact-hero{padding-block:72px 96px}
+.contact-hero h1{font-size:clamp(28px,4vw,40px);font-weight:600;margin-top:10px}
+.contact-hero h1 em{font-style:normal;color:var(--accent)}
+.contact-hero p.lead{color:var(--fg-2);font-size:17px;margin-top:12px}
+.channels{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-top:56px}
+.channel{padding:26px;border-radius:18px;border:1px solid var(--line);background:var(--surface);display:flex;flex-direction:column;gap:6px;min-width:0}
+.channel small{color:var(--fg-3);font-size:13px;font-weight:500;letter-spacing:.04em}
+.channel b{font-family:var(--display);font-size:18px;font-weight:600;user-select:all;overflow-wrap:anywhere}
+.channel .act{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}
+.channel .act a,.channel .act button{font:500 14px var(--body);color:var(--accent);background:var(--accent-soft);border:0;border-radius:8px;padding:7px 12px;text-decoration:none;cursor:pointer}
+.social{display:flex;gap:10px;margin-top:22px}
+.soc{display:inline-flex;align-items:center;gap:8px;padding:9px 14px 9px 10px;border-radius:999px;border:1px solid var(--line);background:var(--surface);text-decoration:none;font:500 14px var(--display);color:var(--fg)}
+.soc:hover{border-color:var(--accent);color:var(--accent)}
+.soc.ts svg{color:#eb531f}
+.cta-card{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:center;padding:clamp(28px,5vw,56px);border-radius:28px;background:var(--band);border:1px solid var(--line)}
+.cta-copy h2{font-size:clamp(21px,2.4vw,26px);font-weight:600;margin:10px 0 12px}
+.cta-copy p{color:var(--fg-2);font-size:16.5px;margin-bottom:24px}
+.cta-list{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.cta-list .row{display:grid;grid-template-columns:40px minmax(0,1fr) auto;gap:14px;align-items:center;padding:14px 16px;border-radius:14px;background:var(--surface);border:1px solid var(--line);text-decoration:none;color:var(--fg)}
+a.row:hover{border-color:var(--accent)}
+.ci{width:40px;height:40px;border-radius:12px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center}
+.ci.ts{background:#fdeee8;color:#eb531f}
+.cta-list small{display:block;font-size:12px;color:var(--fg-3);letter-spacing:.04em}
+.cta-list b{font-family:var(--display);font-weight:600;font-size:15.5px;overflow-wrap:anywhere}
+.go{color:var(--fg-3)}
+@media (max-width:820px){.cta-card{grid-template-columns:1fr}}
+.ch-ic{width:40px;height:40px;border-radius:12px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;margin-bottom:8px}
+.ch-ic.ts{background:#fdeee8;color:#eb531f}
+.plist{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.plist a{display:grid;grid-template-columns:110px minmax(0,1fr) 24px;gap:24px;align-items:start;padding:22px 4px;border-bottom:1px solid var(--line);text-decoration:none;color:var(--fg)}
+.plist a:hover h3{color:var(--accent)}
+.plist time{font-size:14px;color:var(--fg-3);font-variant-numeric:tabular-nums;padding-top:3px}
+.pl-top{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.pl-cat{font-size:12.5px;color:var(--fg-3)}
+.pl-main h3{font-size:17px;font-weight:600;line-height:1.45}
+.pl-main p{color:var(--fg-2);font-size:14.5px;margin-top:4px}
+.pl-go{color:var(--fg-3);padding-top:4px}
+@media (max-width:640px){.plist a{grid-template-columns:minmax(0,1fr) 20px;gap:12px}.plist time{grid-column:1/-1;padding:0}}
+.posts{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:20px}
+.post{display:flex;flex-direction:column;border-radius:18px;overflow:hidden;background:var(--surface);border:1px solid var(--line);text-decoration:none;color:var(--fg)}
+.post:hover{border-color:var(--accent)}
+.thumb{aspect-ratio:16/9;max-width:100%;position:relative;display:flex;align-items:flex-end;padding:16px 18px;overflow:hidden}
+.thumb::after{content:"";position:absolute;inset:auto -30px -60px auto;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.14)}
+.th-cat{position:absolute;top:14px;left:16px;font:600 11.5px var(--display);letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.85)}
+.th-big{font:700 clamp(30px,4vw,40px)/1 var(--display);color:#fff;letter-spacing:-.02em;position:relative;z-index:1}
+.t-toeic{background:linear-gradient(135deg,#1b86ec,#5cb1f7)}
+.t-greedy{background:linear-gradient(135deg,#252b42,#46507a)}
+.t-dfs{background:linear-gradient(135deg,#2f7a68,#4fb59a)}
+.t-bfs{background:linear-gradient(135deg,#6b4fc8,#9b84ea)}
+.post-body{padding:18px 20px 22px;display:grid;gap:8px}
+.post-meta{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--fg-3);font-variant-numeric:tabular-nums}
+.ptag{font-size:12px;font-weight:600;padding:2px 9px;border-radius:999px;background:var(--accent-soft);color:var(--accent)}
+.post h3{font-size:16.5px;font-weight:600;line-height:1.45}
+.post p{color:var(--fg-2);font-size:14.5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.cta-band{background:var(--fg);color:var(--bg);border-radius:28px;padding:64px clamp(24px,6vw,72px);display:flex;justify-content:space-between;align-items:center;gap:32px;flex-wrap:wrap}
+.cta-band h2{font-size:clamp(26px,3.6vw,38px);font-weight:600;max-width:15em}
+.cta-band p{opacity:.75;margin-top:10px}
+.cta-band .btn-primary{background:var(--accent);color:var(--accent-ink)}
+footer{padding-block:40px;border-top:1px solid var(--line);color:var(--fg-3);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer a{text-decoration:none}
+footer a:hover{color:var(--accent)}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:10px 18px;border-radius:999px;font-size:14px;z-index:70}
+</style>
+<style>html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#home">Hyowon Jang</a>
+    <nav class="menu" aria-label="주 메뉴">
+      <a href="#about" data-nav="about">About</a>
+      <a href="#skills" data-nav="skills">Skills</a>
+      <a href="#projects" data-nav="projects">Projects</a>
+      <a href="#contact" data-nav="contact">Contact</a>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="테마 전환">◐</button>
+    </nav>
+  </div>
+</header>
+
+<main id="app"></main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 장효원 · Backend Developer</span>
+    <span><a href="https://github.com/hyowon0204" target="_blank" rel="noopener">GitHub</a> · <a href="https://ally0204.tistory.com" target="_blank" rel="noopener">Blog</a> · ally0204@naver.com · 010-7228-9731</span>
+  </div>
+</footer>
+<div class="toast" id="toast" hidden></div>
+<div class="lightbox" id="lightbox" hidden role="dialog" aria-label="이미지 크게 보기"><img alt=""><button type="button" aria-label="닫기">×</button></div>
+
+<script>
+const IMG = {"cv_ssak": "assets/cv_ssak.webp", "cv_seoul": "assets/cv_seoul.webp", "cv_kang": "assets/cv_kang.webp", "cv_lol": "assets/cv_lol.webp", "cv_ssu": "assets/cv_ssu.webp", "cv_sum": "assets/cv_sum.webp", "cv_yurok": "assets/cv_yurok.webp", "cv_fan": "assets/cv_fan.webp", "kg_goal": "assets/kg_goal.webp", "kg_sched": "assets/kg_sched.webp", "kg_home": "assets/kg_home.webp", "kg_kelper": "assets/kg_kelper.webp", "lol_home": "assets/lol_home.webp", "lol_about": "assets/lol_about.webp", "sc_seoul15": "assets/sc_seoul15.webp", "sc_seoul21": "assets/sc_seoul21.webp", "sc_seoul22": "assets/sc_seoul22.webp", "sc_ssak13": "assets/sc_ssak13.webp", "sc_ssak15": "assets/sc_ssak15.webp", "sc_ssak17": "assets/sc_ssak17.webp", "sc_ssak18": "assets/sc_ssak18.webp", "arch_kang": "assets/arch_kang.webp", "arch_ssak": "assets/arch_ssak.webp", "arch_seoul": "assets/arch_seoul.webp", "arch_yurok": "assets/arch_yurok.webp", "sc_ssu_main": "assets/sc_ssu_main.webp", "sc_ssu_apply": "assets/sc_ssu_apply.webp", "profile": "assets/profile.webp", "ssu_info": "assets/ssu_info.webp", "ssu_detail": "assets/ssu_detail.webp", "ssu_docs": "assets/ssu_docs.webp", "ssu_dash": "assets/ssu_dash.webp", "ssu_preview": "assets/ssu_preview.webp", "ssu_grade": "assets/ssu_grade.webp", "ssu_result": "assets/ssu_result.webp", "lol_my": "assets/lol_my.webp", "lol_comm": "assets/lol_comm.webp", "lol_vote": "assets/lol_vote.webp", "lol_today": "assets/lol_today.webp", "sc_ssak14": "assets/sc_ssak14.webp", "arch_ssu": "assets/arch_ssu.webp"};
+
+/* ---------------- DATA ---------------- */
+const P = [
+{
+  slug:"ssuport", name:"SSUport", tagline:"숭실대학교 특별장학금 통합 시스템",
+  period:"2025.10 – 운영 중", start:202510, end:209912, team:"10명 — PM 1, 디자인 1, 프론트엔드 5, 백엔드 3", role:"Backend / Infra",
+  award:"공인어학 장학금 시범 도입 → 2026-2학기 특별장학금 전체로 확대", cats:["live","infra"],
+  cover:{img:"cv_ssu"},
+  summary:"메일·구글폼으로 진행되던 숭실대학교 특별장학금 신청과 채점을 하나의 웹 서비스로 통합한 프로젝트입니다. IT지원위원회 TF의 백엔드 개발자로 백엔드 초기 구축부터 신청자 기능 전반을 담당했고, 2학기에는 채점자 기능과 운영 인프라까지 확장했습니다.",
+  highlights:[["공인어학 장학금 시범 도입","신규 온보딩 553명 · 실제 신청 207건, 신청 기간 2주간 Sentry 운영 환경 감지 오류 0건"],["2026-2학기 전체 도입","시범 운영 결과를 바탕으로 특별장학금 전체(주거비 · 교통비 · 근면숭실 · 공인어학)로 확대"]],
+  stack:["Java 17","Spring Boot 3.5","Spring Security (OAuth2 Resource Server)","Spring Data JPA","QueryDSL","Flyway","MariaDB 10.11","AWS S3 (Presigned URL)","AWS EC2 · ALB · CloudFront · ECR · SSM · CloudWatch · EventBridge · Lambda · DLM","Terraform","Docker","GitHub Actions (OIDC)","Sentry"],
+  links:[{t:"ssuport.ssu.ac.kr",u:"https://ssuport.ssu.ac.kr"},{t:"GitHub",u:"https://github.com/ssu-student-union/ssuport-backend"}],
+  quote:"서류 하나 빠져서 장학금을 못 받았어요.",
+  why:["숭실대학교 특별장학금은 학생이 메일이나 구글폼으로 서류를 제출하고, 총학생회 정책국이 수천 건의 파일을 메일로 취합해 엑셀로 채점하는 구조였습니다. 학생은 장학금마다 다른 제출 요건 때문에 서류를 빠뜨리기 쉬웠고, 정책국은 서명 누락과 잘못 제출된 서류를 일일이 확인해야 했습니다.","TF는 신청 경험자 117명 설문과 정책국 인터뷰로 “진행 상태가 보이지 않는다”, “장학금별 서류 요건이 복잡하다”는 문제를 확인했습니다. 학교 공식 행정에 학생이 만든 서비스를 들이는 만큼, 공인어학 장학금 1종으로 2주간 시범 운영한 뒤 전체로 확대하는 방식을 택했습니다."],
+  goal:"신청자의 서류 누락으로 인한 수혜 탈락을 줄이고, 채점자의 인지적 부담과 오류를 줄여 특별장학금 본연의 취지에 집중할 수 있도록 한다.",
+  tables:[
+    {t:"1학기 — 공인어학 장학금 시범 도입 (2026.04.30 – 05.14)",head:["지표","수치","출처"],rows:[["실제 신청","207건","DB"],["신규 온보딩 완료","553명 (완료율 99.5%)","GA4"],["활성 사용자 · 세션","1,646명 · 2,395회","GA4"],["신청 기간 운영 오류","Sentry 감지 오류 0건","Sentry (prod)"],["도입 결과","2026-2학기 전체 특별장학금으로 확대 도입 확정","총학생회 정책국"]],note:"서버 고정비는 공용 인프라 분담을 포함해 월 약 1.5~2만 원 수준으로 운영했습니다. Sentry 감지 오류 0건이 모든 사용자 경험에 문제가 없었다는 뜻은 아니며, 이 한계는 회고에서 다뤘습니다."},
+    {t:"2학기 — 전체 특별장학금 확대 (팀 k6 부하테스트)",head:["검증 항목","결과"],rows:[["신청 흐름","20 RPS 부하 검증"],["최종 제출","600건 전부 성공"],["최악 구간 실패율","0.026%"],["예상 피크 대비","예상 2.6 RPS의 약 7.8배 수준 검증"]],note:"팀 부하테스트 결과이며 실제 운영 트래픽과는 구분됩니다. CloudWatch 대시보드로 API별 p95 응답 시간, 오류율, RPS를 관측했습니다."}],
+  fxGroups:[["신청자",[
+    {img:"sc_ssu_main",t:"메인",d:"신청 중인 장학금의 마감까지 남은 기간, 공지사항, 월별 신청 일정을 첫 화면에서 확인합니다."},
+    {img:"sc_ssu_apply",t:"장학금 선택",d:"신청할 장학금을 고릅니다. 학교생활지원 장학금(주거비 · 교통비 · 근면숭실)은 하나만 신청할 수 있어, 중복 신청은 서버에서 막습니다.",m:"신청 API · 중복 신청 검증"},
+    {img:"ssu_info",t:"기본 정보 · 신청 정보 입력",d:"이름 · 학번 · 학과는 통합 로그인 정보로 채워지고, 학생은 연락처 · 학기 · 이메일만 입력한 뒤 공통 자격 요건을 확인합니다.",m:"온보딩 · 신청 API",tall:1},
+    {img:"ssu_detail",t:"장학금별 정보 입력",d:"장학금마다 다른 자격 요건과 채점 방법을 보여주고, 공인어학 장학금은 시험 종류와 점수를 입력받습니다.",tall:1},
+    {img:"ssu_docs",t:"서류 제출",d:"장학금별 필수 서류와 주의 사항을 안내합니다. 파일은 브라우저가 S3에 직접 올리고, 최종 제출 때 서버가 실제로 올라간 파일인지 확인합니다.",m:"Presigned 업로드 · 제출 검증",tall:1},
+    {img:"ssu_preview",t:"미리보기",d:"제출하기 전에 입력한 정보와 올린 서류를 한 화면에서 다시 확인합니다.",m:"미리보기 API",tall:1}]],
+   ["채점자 (백오피스)",[
+    {img:"ssu_dash",t:"메인 대시보드",d:"신청 마감까지 남은 기간, 현재 신청자 수, 장학금별 신청자 수와 최근 신청 내역을 봅니다."},
+    {img:"ssu_grade",t:"서류 채점",d:"왼쪽에서 서류를 보면서 오른쪽 체크리스트로 항목마다 O · △ · X를 매기고, 점수와 최종 결과(합격 · 보류 · 탈락)를 저장합니다.",m:"체크리스트 채점 API",tall:1},
+    {img:"ssu_result",t:"채점 결과",d:"장학금 · 회차별로 채점 결과를 모아 보고, 이전 회차 결과도 조회하며 엑셀로 내려받습니다.",m:"채점 결과 · 이전 회차 조회"}]]],
+  archLead:"프론트엔드는 S3 + CloudFront, 백엔드는 프라이빗 서브넷의 EC2 컨테이너, 제출 서류는 Private S3에 두는 구조입니다. 파일은 브라우저가 Presigned URL로 S3에 직접 업로드하고, 로그인은 위원회 공용 SSO를 활용합니다.",
+  archImg:"arch_ssu", archNote:"위원회 공용 AWS 전체 구성 중 SSUport가 사용하는 영역을 파란 테두리로 표시했습니다.",
+  points:[["인증은 공용 SSO에 맡긴다","위원회 SSO TF가 운영하는 Cognito 기반 통합 로그인과 연동했습니다. 백엔드는 Cognito JWK로 JWT 서명을 검증하고, 토큰 클레임에서 학번·학과 등 학생 정보를 처리합니다."],["파일은 서버를 거치지 않는다","서버는 업로드용 Presigned URL만 발급하고 브라우저가 S3에 직접 올립니다. 메모리 2GB의 EC2가 마감 직전 업로드 트래픽을 직접 받지 않도록 했고, 서류 버킷은 Private으로 유지합니다."],["내 신청서만 조회·수정할 수 있다","신청서 조회·수정과 업로드 URL 발급 시 인증된 사용자의 userId와 신청서 소유자를 비교해, 다른 학생의 신청서나 서류에 접근하지 못하게 했습니다."],["공용 인프라 위에서 서비스를 분리한다","ALB · DB 서버 · VPC는 위원회의 다른 서비스와 공유하고, 백엔드 컨테이너와 DB 계정·권한은 분리했습니다. DB는 프라이빗 서브넷, 접속은 SSM Session Manager로만 하고, 2학기에는 운영 전용 S3 버킷도 분리했습니다."],["GitHub Actions로 배포 자동화","OIDC로 AWS 권한을 받아 장기 Access Key 없이 arm64 이미지를 빌드해 ECR에 올리고 EC2 컨테이너를 갱신합니다. 설정은 GitHub Environment Secret으로 주입합니다."],["장애 유형에 따라 복구 수단을 분리한다","DB는 EBS Snapshot + MariaDB 논리 백업, 제출 서류는 Private S3 + Google Drive 사본. CloudWatch로 서버 지표와 API 요청 로그를 수집하고, EventBridge · Lambda로 Discord 서버 상태 알림을 보냅니다."]],
+  work:[["백엔드 초기 구축 · 공통 구조","2026.02–03",["백엔드 저장소 개설, 이슈·PR 템플릿, GitHub Actions → ECR → EC2 개발 서버 CD 구축","온보딩 API(/auth/me, 약관 동의)와 Swagger 설정","BaseResponse 공통 응답, 전역 예외 처리 통일, 계층 구조 리팩터링","공용 Cognito SSO 연동과 인증된 사용자 정보 처리"]],
+        ["신청자 도메인","2026.03–05",["장학금 신청 · 임시저장 · 미리보기 · 제출 · 수정 · 삭제 API","S3 Presigned URL 서류 업로드 · 다운로드, 제출 시 파일 정합성 검증","신청서 소유권 검증과 사용자별 조회 범위 제한","장학 회차 · 유형 · 신청 가능 여부 관리 백오피스, 마이페이지","지원자 관리 목록 정렬 안정화"]],
+        ["2학기 채점 기능 · 신청 정책 확장","2026.07–10",["신청 기간 · 장학금 상태의 이중 관리 문제를 회고에서 발견해, 회차 상태 기준 신청 검증 통합을 제안 · 반영","주거비 서류별 체크리스트 · 채점 저장, 복수 탈락 사유","공인어학 채점 정보 분리와 공통 체크리스트","제출 신청서 부분 수정, 장학금 중복 신청 검증","채점 결과 이어보기, 이전 회차 채점 조회, 추가 서류 동적 첨부","Swagger 200 응답 스키마 자동 보정, Cognito 로그인 콜백 토큰 전달 방식 개선"]],
+        ["운영 안정성 · 인프라","",["<b>서류 백업</b> — 운영 S3 제출 서류를 Google Drive로 자동 백업, 제출 · 수정 · 삭제 상태 동기화","<b>DB 백업</b> — EBS Snapshot + MariaDB 논리 백업 이중화와 Terraform 이관","<b>모니터링</b> — CloudWatch Agent 메모리 · 디스크 · Docker 로그 수집, API별 p95 · 오류율 · RPS 대시보드","<b>인프라 코드화</b> — 기존 IAM 리소스 58개 Terraform 이관, 운영 S3 버킷 분리, ACM · CORS 정리","<b>운영 자동화</b> — EventBridge · Lambda 기반 Discord 서버 상태 알림, Flyway 버전 충돌 Hotfix"]]],
+  troubles:[
+   {t:"S3에만 있는 제출 서류 → 재시작해도 이어지고, 최종 제출 상태를 따라가는 Google Drive 자동 백업",
+    p:"제출 서류가 S3에만 있어, S3 접근 장애가 발생하면 채점자가 서류를 확인할 대체 수단이 없었습니다",
+    d:"단순 파일 복사가 아니라 DB를 작업 큐로 사용해 재시작·외부 API 실패에도 작업을 잃지 않도록 설계했고, 운영 중 발견한 문제를 바탕으로 제출·수정·삭제 상태까지 동기화하도록 확장했습니다",
+    s:"1분마다 대상 파일을 drive_copy_jobs에 등록·복사(#235) → 최종 제출 신청서로 대상 제한(#261) → 수정·삭제로 무효가 된 사본 자동 정리(#263)",
+    star:{S:"2학기 전체 도입으로 제출 서류가 늘어나면서 채점 업무가 S3에 저장된 파일에 의존하게 됐습니다. S3 접근에 문제가 생기더라도 채점자가 서류를 확인할 수 있도록 Google Drive에 별도 사본을 보관하기로 했습니다.",
+      T:"파일을 단순히 복사하는 것만으로는 해결되지 않았습니다. 운영·개발 파일이 섞여 있었고, 브라우저의 업로드와 DB 등록 시점이 달랐으며, 신청서가 수정되면 이전 파일이 더 이상 유효하지 않을 수 있었습니다. 외부 API가 실패하거나 서버가 재시작돼도 작업이 유실되지 않아야 했습니다.",
+      A:["<b>1) DB 기반 작업 큐 구축 (#235)</b><ul><li><b>개발 파일 혼재</b> — Terraform으로 운영 전용 버킷을 분리하고, 버킷 전체가 아니라 운영 DB에 등록된 S3 키만 백업 대상으로 삼았습니다.</li><li><b>파일의 소속 정보 부족</b> — 신청서·학생·장학금·학기를 조인해 <code>학기 / 장학금 / 이름_학번</code> 폴더 구조로 저장했습니다(#259에서 순서 조정).</li><li><b>DB 등록과 S3 업로드 시점 차이</b> — <code>headObject</code>로 존재를 확인하고, 없으면 재시도를 예약했습니다.</li><li><b>작업 유실·중복 방지</b> — 버킷 + S3 키 해시로 작업 ID를 만들고 <code>PENDING → PROCESSING → SENT</code> 상태와 다음 시도 시각을 저장했습니다. 처리 중 종료된 작업은 15분 점유 시간이 지나면 다시 처리합니다.</li><li><b>인증 유지</b> — OAuth Refresh Token을 SSM Parameter Store(SecureString)에 보관해 읽기 전용으로 마운트하고, 인증 만료를 피하려고 OAuth 앱을 프로덕션으로 게시했습니다.</li></ul>","<b>2) 운영 중 발견 — 제출하지 않은 파일까지 백업 (#261)</b> — 팀원이 검증용으로 올린 파일이 Drive에 복사되는 것을 발견했습니다. 파일이 DB에 등록됐는지만 보고 최종 제출 여부는 확인하지 않았기 때문입니다. 대상을 제출 상태(SUBMITTED 이후)이면서 제출 시각이 있는 신청서의 파일로 제한하고, 탐색 기준 시각은 파일 수정 시각과 제출 시각 중 늦은 값으로 잡았습니다.","<b>3) 신청서를 수정하면 이전 파일은? (#263)</b> — 파일 정보가 삭제됐거나, 신청서가 제출 상태가 아니거나, 재업로드로 S3 키가 바뀐 사본을 무효로 보고 Drive 휴지통으로 옮긴 뒤 <code>OBSOLETE</code>로 바꿨습니다. 다시 제출되면 <code>PENDING</code>으로 되돌려 재백업합니다. 파일 교체 시에는 새 파일이 <code>SENT</code>가 된 뒤에만 이전 사본을 정리했고, 정리 기능은 <code>cleanup-enabled</code> 플래그와 Dry-run으로 대상 건수부터 확인한 뒤 켰습니다."],
+      R:"운영 S3의 제출 서류를 1분 간격으로 탐색해 Google Drive에 장학금·학생별로 정리할 수 있게 됐습니다. 서버 재시작이나 외부 API 오류가 나도 DB의 작업 상태를 기준으로 재처리하며, 동기화가 끝난 시점에는 현재 최종 제출 상태에 맞는 서류만 Drive에 남습니다."},
+    l:"백업은 단순한 파일 복사로 끝나지 않았습니다. 대체 자료로 쓰려면 원본의 상태 변화까지 반영하는 동기화 정책이 필요했고, 새 백업이 끝난 뒤 이전 사본을 정리하는 순서를 설계하며 데이터 보존과 정합성을 함께 고려하는 법을 배웠습니다."},
+   {t:"응답은 정상인데 프론트 타입이 생성되지 않는다 → 제네릭 반환 타입으로 Swagger 스키마 전역 보정",
+    p:"BaseResponse&lt;T&gt; 제네릭을 Swagger가 해석하지 못해 200 응답 스키마가 비었고, 프론트엔드의 API 타입 자동 생성(generate:api)이 동작하지 않았습니다",
+    d:"API마다 문서용 클래스를 추가하는 대신, 컨트롤러에 이미 선언된 제네릭 반환 타입을 읽어 스키마를 자동 생성하도록 했습니다",
+    s:"OperationCustomizer로 반환 타입을 분석하고 ModelConverters로 스키마를 생성해 200 응답에 주입",
+    star:{S:"프론트엔드는 OpenAPI 명세를 기반으로 API 타입을 자동 생성했고, 백엔드 응답은 모두 BaseResponse&lt;T&gt;로 감싸는 구조였습니다.",T:"200 응답에 <code>useReturnTypeSchema = true</code>를 적용하자, 실제 응답은 정상인데 명세에서 result의 DTO 타입이 누락돼 프론트가 응답 타입을 생성하지 못했습니다.",
+      A:["<b>원인 분리</b> — API 응답 오류가 아니라, Springdoc이 BaseResponse&lt;T&gt;의 제네릭 타입을 해석하지 못하는 명세 생성 문제임을 확인했습니다.","<b>대안 1 — API별 Wrapper 클래스</b> — 스키마는 정상 생성됐지만 API마다 비즈니스와 무관한 클래스가 늘어 유지보수 부담이 커졌습니다.","<b>대안 2 — 전역 스키마 보정 (채택)</b> — <code>getGenericReturnType()</code>으로 반환 타입을 추출하고, Swagger Core의 <code>ModelConverters</code>로 DTO 스키마를 만들어 <code>OperationCustomizer</code>에서 200 응답에 적용했습니다. 참조 DTO는 <code>OpenApiCustomizer</code>로 components에 등록하고, 기존 @ApiResponse 설명은 유지한 채 스키마만 교체했습니다."],
+      R:"컨트롤러 코드를 수정하지 않고 전체 API의 200 응답에 실제 DTO 스키마를 연결했습니다. 프론트 타입 자동 생성이 정상화됐고, 새 API에도 같은 설정이 적용됩니다."},
+    l:"개별 API에 예외 처리를 더하기보다, 공통 응답 구조와 문서 생성 사이의 문제를 해결하는 편이 유지보수에 유리했습니다. 이미 있는 타입 정보를 재사용해 반복 작업을 없앤 경험이었습니다."},
+   {t:"서버는 업로드가 끝났는지 모른다 → 최종 제출 시점에 서버가 파일 목록을 확정",
+    p:"브라우저가 S3에 직접 업로드하기 때문에, DB에는 파일 정보가 있지만 S3에는 객체가 없거나 학생이 취소한 파일이 남은 채로 제출될 수 있었습니다",
+    d:"모든 파일 선택·취소 상황을 개별 API로 처리하지 않고, 최종 제출 요청을 기준으로 서버가 유효한 파일 목록을 확정하도록 했습니다",
+    s:"제출·수정 요청에 최종 파일 종류 목록을 받고, S3 객체 존재 여부를 검증해 제출 데이터를 정리",
+    star:{S:"업로드는 Presigned URL 발급 → DB에 파일 정보 등록 → 브라우저가 S3에 직접 업로드 순서였습니다. 업로드 부하는 줄였지만, 서버는 실제 업로드 완료 여부를 알 수 없었습니다.",T:"파일을 골랐다가 취소하거나 업로드 중 네트워크가 끊겨도 DB에는 파일 정보가 남았습니다. 시범 도입 전에, 열 수 없는 파일이나 낼 생각이 없던 파일이 제출되는 것을 막아야 했습니다.",
+      A:["<b>첫 번째 시도 — 파일 선택 취소 API</b> — 취소할 때마다 프론트가 삭제 API를 호출하게 했지만, 모든 취소 경로에서 빠짐없이 호출해야 했고 브라우저 종료나 업로드 중단은 처리할 수 없었습니다.","<b>설계 변경 — 최종 제출 시 서버가 확정</b> — 하루 만에 취소 API를 지우고, 제출·수정 요청에 최종 파일 종류 목록을 받도록 바꿨습니다. 목록에 없는 파일과 S3에 없는 파일은 정리하고, 제출 대상 파일의 S3 존재를 검증해 없으면 제출을 막았습니다. 선택 첨부 서류는 목록에 없으면 제외됩니다.","<b>삭제 경로 정리</b> — 신청서 삭제 시 파일 정보도 함께 정리하고, S3 키를 <code>prefix/신청서ID/uuid/원본파일명</code> 구조로 바꿔 신청서별로 구분하고 이름 충돌을 막았습니다."],
+      R:"업로드가 끝나지 않은 파일이 제출 데이터에 포함되는 문제를 막았고, 이 구조로 공인어학 장학금 시범 운영 2주간 Sentry 기준 운영 오류 0건을 기록했습니다."},
+    l:"보장해야 하는 것은 파일 선택 취소라는 개별 동작이 아니라 최종 제출 데이터의 정합성이었습니다. 최종 시점에 서버가 검증 책임을 갖도록 설계해 클라이언트의 중간 동작에 대한 의존을 줄였습니다."},
+   {t:"새로고침할 때마다 지원자 순서가 바뀐다 → 정렬 마지막에 고유 키 추가",
+    p:"정책국 QA 중 지원자 관리 페이지를 새로고침할 때마다 같은 신청자들의 순서가 바뀌었습니다",
+    d:"화면 순서가 달라지는 것보다, 같은 원인으로 페이지 경계에서 지원자가 중복되거나 누락될 위험이 더 중요하다고 판단했습니다",
+    s:"모든 정렬 조건의 마지막에 신청서 ID 오름차순을 추가해 정렬 순서를 고정",
+    star:{S:"채점 시작 전 정책국이 백오피스를 직접 쓰는 QA를 진행했습니다. 지원자 관리 페이지는 제출 시각 내림차순이 기본이고, 학번 등으로도 정렬할 수 있었습니다.",T:"정렬을 바꾸지 않았는데도 새로고침마다 순서가 달라진다는 제보가 들어왔습니다. 채점자가 지원자를 배정하고 확인하는 화면이라, 정렬이 불안정하면 업무 진행 상태를 추적하기 어려웠습니다.",
+      A:["<b>원인 확인</b> — 정렬은 백엔드 QueryDSL에서 처리했고, 기본 정렬이 제출 시각 한 컬럼뿐이었습니다. 값이 같으면 MariaDB는 순서를 보장하지 않습니다. 학번도 한 학생이 여러 장학금을 신청하면 중복됩니다.","<b>페이지네이션 영향 분석</b> — LIMIT/OFFSET 방식이라, 같은 값의 순서가 요청마다 달라지면 페이지 경계에서 지원자가 중복 조회되거나 누락될 수 있었습니다.","<b>고유 키를 마지막 정렬 기준으로</b> — 기본 정렬뿐 아니라 모든 정렬 조건의 마지막에 신청서 ID 오름차순을 추가했습니다."],
+      R:"같은 데이터와 조건에서 새로고침해도 순서가 일관되게 유지되고, 페이지 간 중복·누락 위험을 줄였습니다. 프론트 수정 없이 백엔드 쿼리만 바꿔 신청 마감 전에 반영했습니다."},
+    l:"단순한 화면 정렬 문제로 보였지만, 실제로는 채점 대상 누락으로 이어질 수 있는 조회 문제였습니다. 드러난 현상뿐 아니라 그 현상이 운영 흐름에 미치는 영향까지 분석해야 합니다."}
+  ],
+  ops:[
+   {t:"운영 DB 백업 이중화",sub:"장애 유형별로 복구 경로를 나눈 자동 백업",p:"운영 DB에 자동 백업이 없어 디스크 장애나 오삭제 시 복구하기 어려웠습니다. 스냅샷만 쓰면 슈포트 DB만 골라 복원하기 어렵고, 논리 백업만 쓰면 서버·디스크 전체 장애에 대응하기 번거로웠습니다.",
+    tbl:{head:["대비할 장애","백업 방식","주기 · 보관"],rows:[["서버·디스크 장애","EBS Snapshot (AWS DLM, 태그로 운영 DB 볼륨 지정)","24시간마다 · 최근 7개"],["데이터 오삭제","mariadb-dump --single-transaction → gzip → S3","매일 03:00 · 30일 (S3 Lifecycle)"]]},
+    s:["<b>실패 감지</b> — <code>set -euo pipefail</code>과 <code>gzip -t</code> 검사, S3 업로드 성공 시에만 임시 파일 삭제","<b>접근 권한 제한</b> — DB 비밀번호는 root 전용 600 권한 파일, S3 접근은 EC2 IAM Role. 서버에는 백업 삭제 권한을 주지 않고 Lifecycle로 만료 관리","<b>설정 코드화</b> — 백업 스크립트, systemd timer, DLM 정책을 Terraform으로 관리 (#153)"],
+    r:"서버·디스크 장애에는 EBS Snapshot, 특정 데이터 복구에는 논리 백업을 쓸 수 있게 됐고, 백업 주기와 보관 정책을 코드로 재현할 수 있습니다. 실제 복원 테스트 결과는 검증 후 추가할 예정입니다."},
+   {t:"서버 기준 API 모니터링",sub:"브라우저 이벤트가 아닌 서버가 실제로 받은 요청으로 API 상태를 관측",p:"브라우저 이벤트는 실제 서버 처리 결과와 차이가 있었습니다(최종 제출 GA4 200건 vs DB 207건). 2학기 전체 도입을 앞두고 API 요청량, 오류율, 응답 시간을 서버 기준으로 볼 도구가 필요했습니다.",
+    s:["<b>요청 로그</b> — 필터에서 API 요청의 method · uri · status · 응답 시간 기록 (#120)","<b>로그·지표 수집</b> — CloudWatch Agent로 EC2 메모리·디스크 지표와 Docker 로그 수집","<b>재배포 대응</b> — 컨테이너 ID가 바뀌어도 이어지도록 <code>/var/lib/docker/containers/*/*-json.log</code> 경로 사용","<b>대시보드</b> — API별 p95 응답 시간, HTTP 오류율, 1분 평균 RPS"],
+    r:"서버가 실제로 처리한 요청 기준으로 API 상태를 관측할 수 있게 됐고, 팀 부하테스트에서도 이 대시보드로 p95, 실패율 1% 미만, 목표 RPS 기준을 확인했습니다."},
+   {t:"IAM 권한 정리와 Terraform 코드화",sub:"콘솔에서 관리하던 개발자 권한을 기존 권한 변경 없이 코드로 이관",p:"IAM 권한을 콘솔에서 직접 관리해 변경 이력을 리뷰로 추적하기 어려웠습니다. 사용자 19명 중 일부는 여러 그룹에 속해 있어, 이관 중 권한이 하나라도 바뀌면 다른 서비스 운영에 영향을 줄 수 있었습니다.",
+    s:["<b>역할별 권한 구분</b> — 공통 개발자 그룹은 조회와 로그 확인, 슈포트 그룹은 슈포트 리소스 운영 권한. 인스턴스 종료 등 파괴적 권한은 제한","<b>기존 설정 확인</b> — AWS CLI로 그룹과 정책의 Action · Resource · Condition을 조회해 코드에 반영","<b>모듈 분리</b> — 공통은 global, 슈포트는 ssuport/iam 모듈. 다른 프로젝트의 그룹 소속은 제외하고 prevent_destroy 적용","<b>Import 방식 이관</b> — 사용자 · 그룹 · 정책 · 소속 58개를 Import 블록으로 연결"],
+    r:"<code>terraform plan</code> 결과 <b>Import 58 · 생성 0 · 변경 0 · 삭제 0</b>을 확인해, 기존 권한을 바꾸지 않고 Terraform 관리로 전환했습니다(#155). 이후 권한 변경은 코드와 PR에서 검토합니다."}],
+  retro:[{t:"운영 오류가 없더라도, 사용자가 끝까지 신청했는지는 별개의 문제",body:["시범 운영에서 실제 신청 207건을 처리했고 Sentry 감지 오류는 0건이었지만, 그것만으로 모든 사용자가 원활하게 신청을 마쳤다고 볼 수는 없었습니다.","GA4 기준 신청을 시작한 1,333명 대비 최종 제출은 207건입니다. 단순 계산으로 약 15%지만, 대상이 아닌 방문자가 포함됐을 수 있고 클라이언트 이벤트와 DB 집계 기준도 달라 정확한 전환율로 보기는 어렵습니다. 업로드 이벤트가 최종 제출의 약 4.6배였지만, 서버에 파일 검증 실패 이유가 남지 않아 어느 단계에서 막혔는지 확인할 수 없었습니다."],imp:"최종 제출 성공을 DB 저장 완료 시점에 서버에서 기록하고, 파일 형식·용량 등 업로드 검증 실패 사유를 로그로 수집하며, 신청 단계별 이탈 지표를 설계하겠습니다.",take:"서비스 안정성은 서버가 오류 없이 동작했는지뿐 아니라 사용자가 실제로 목표를 완료했는지까지 봐야 합니다. 측정 기준이 다른 데이터는 단순 비교하지 말고, 무엇을 믿고 무엇을 더 측정할지 구분해야 합니다."},
+         {t:"장학금이 늘어날수록 개발자가 필요한 구조",body:["장학금이 1종에서 4종으로 늘면서 장학금마다 다른 체크리스트·채점 정보·탈락 사유를 추가해야 했습니다. 정책이 코드에 들어 있어, 장학금이 추가되거나 기준이 바뀌면 개발자가 수정하고 배포해야 합니다. 담당자가 매년 바뀌는 학생 조직에서는 장기 운영에 부담이 됩니다."],imp:"체크리스트 문항과 탈락 사유를 데이터로 관리하고, 운영자가 백오피스에서 장학금별 채점 기준을 수정하며, 장학금 추가 시 공통 기능을 재사용할 수 있게 하겠습니다.",take:"운영되는 서비스에서는 운영자가 개발자 도움 없이 정책을 관리할 수 있게 만드는 것도 기능만큼 중요합니다."}]
+},
+{
+  slug:"kangaroutine", name:"캥거루틴", tagline:"성인 ADHD를 위한 목표 관리 앱",
+  period:"2025.04 – 2025.11", start:202504, end:202511, team:"5명 — 백엔드 2, 프론트엔드·디자인·기획 3", role:"팀장 · Backend · Cloud Infra",
+  award:"제9회 K-PaaS 활용 공모전 특별상 (네이버클라우드상)", cats:["award","infra"],
+  cover:{img:"cv_kang"},
+  summary:"성인 ADHD 사용자가 스스로 목표를 실행하도록 돕는 GMT 기반 자기관리 앱. 팀장으로서 백엔드 MSA를 설계하고, NCP Kubernetes 인프라와 CI/CD를 혼자 구축했습니다.",
+  highlights:[["제9회 K-PaaS 활용 공모전 특별상","네이버클라우드상"],["약 3주 만에 MSA 전환과 자동 배포 완성","단일 서버를 Gateway + 서비스 3개로 전환"],["가설을 세우고 검증하며 장애 해결","첫 배포를 막은 빌드 실패와 클러스터 장애"]],
+  stack:["Java 17","Spring Boot","Spring Cloud Gateway","Spring Security","JWT","Spring Data JPA","OpenFeign","NCP NKS","Docker","NCR","SourcePipeline","MySQL 8.0","Kakao Login","Gemini 2.5 Flash"],
+  links:[{t:"발표자료",u:"https://docs.google.com/presentation/d/1V6v7ZIB1-FyaVUfc9_keLvevOYfEbb9m/edit"},{t:"시연 영상",u:"https://drive.google.com/drive/folders/1LogzWY76w6vkbEP7FrdpFnP0yS5QArjJ"}],
+  quote:"계획은 세웠는데, 시작을 못 하겠어요.",
+  why:["성인 ADHD 사용자는 목표를 작은 행동으로 나누고 이어가는 실행 기능에서 막히지만, 기존 할 일 앱은 이 과정을 사용자에게 맡깁니다.","캥거루틴은 실행 기능 개선 효과가 보고된 목표관리훈련(GMT)의 5단계를 앱의 사용 흐름에 적용했습니다. 별도의 훈련 과정 없이, 목표를 설정하고 실행·점검하는 일상적인 활동을 통해 GMT의 사고 순서를 반복하도록 설계했습니다.","실행이 막히는 순간에는 AI 상담가 Kelper가 함께합니다. 동기가 부족할 때는 MI(동기강화상담), 부정적인 생각이 반복될 때는 CBT(인지행동치료) 기반 대화로 다음 행동을 찾도록 돕습니다."],
+  tables:[{t:"GMT 단계별 사용 흐름 — ‘다이어트하기’ 예시",head:["GMT 단계","사용 흐름"],rows:[["STOP · 목표 인식","메인 목표로 ‘다이어트하기’ 설정"],["DEFINE · 구체화","AI가 ‘30분 걷기’ 등 세부 목표 10개 추천"],["LIST · 쪼개기","실천 가능한 목표를 골라 체크리스트 구성"],["LEARN · 계획","‘목·토 08:00’처럼 반복 일정 및 알림 설정"],["CHECK · 점검","완료 체크 및 홈 화면에서 달성률 확인"]]}],
+  fx:[
+    {img:"kg_goal",t:"목표 설정",tag:"GMT · STOP → DEFINE → LIST",d:"카테고리와 메인 목표(예: 다이어트 하기)를 정하면, Gemini가 ‘아침 공복 유산소 30분’처럼 바로 할 수 있는 세부 목표 10개를 추천합니다. 고르거나 직접 추가해 체크리스트를 만듭니다."},
+    {img:"kg_sched",t:"일정 · 캘린더 · 알림",tag:"GMT · LEARN",d:"세부 목표에 일정을 붙이고 ‘목 · 토 08:00’처럼 요일 반복을 설정합니다. 일정이 있는 날은 달력에 표시되고, 일정 10분 전 알림이 쌓입니다.",m:"일정 · 반복 일정 · 캘린더 API"},
+    {img:"kg_home",t:"홈",tag:"GMT · CHECK",d:"메인 목표별 달성률을 원형 게이지로 보여주고, 세부 목표를 체크하면 게이지가 바로 올라갑니다."},
+    {img:"kg_kelper",t:"AI Kelper",d:"막히는 이유(동기 부족, 부정적 사고, 미루기 등 6가지)를 고르면, 그에 맞춰 MI(동기강화) 또는 CBT(인지행동) 방식으로 대화합니다.",small:1}],
+  archImg:"arch_kang", archLead:"도메인별로 나눈 서비스 3개를 Gateway 하나 뒤에 두고, 코드를 푸시하면 NKS까지 자동으로 배포되는 구조입니다.",
+  points:[["도메인별 책임 분리와 독립 배포","회원·인증(Member), 목표·AI(Planner), 일정(Engagement)을 독립된 서비스로 나눴습니다. 서비스마다 이미지와 Deployment가 따로 있어 하나를 고쳐도 나머지는 그대로 동작하고, 요청이 몰리는 일정 서비스만 따로 늘릴 수 있습니다."],["단일 진입점 API Gateway","외부에는 Gateway만 LoadBalancer로 열고, 내부 서비스는 ClusterIP로 두었습니다. 경로 기반 라우팅, JWT 검증(공개 경로 화이트리스트), CORS, Swagger 통합을 Gateway에 모았습니다."],["서비스별 데이터 소유권","MySQL 하나에 member_db · planner_db · engagement_db 스키마를 나눴습니다. 다른 서비스의 데이터는 OpenFeign으로 내부 API(/internal/**)를 호출해 가져오고, DB 데이터는 PVC(20Gi)에 저장합니다."],["설정·비밀·권한을 이미지 밖으로","설정은 ConfigMap, 인증 정보는 Secret으로 주입해 같은 이미지를 환경만 바꿔 배포합니다. 조회 권한만 가진 ServiceAccount, 서비스별 CPU·메모리 한도와 헬스체크를 두었습니다."],["푸시 한 번에 배포까지","SourceCommit → SourceBuild(JAR 빌드·이미지 생성) → NCR → SourceDeploy를 SourcePipeline으로 연결해, 푸시하면 4개 서비스가 NKS에 자동 배포됩니다."]],
+  work:[["팀 리딩","",["저장소 개설, 이슈·PR 템플릿과 master / develop / feature/* 브랜치 전략으로 협업 규칙 수립","기획 변경 때 단일 프로젝트를 전면 리팩터링하고 MSA 구조로 재설계","공모전 신청서의 아키텍처·인프라·CI/CD 파트를 작성하고 팀 대표로 제출"]],
+        ["Backend","전체 커밋 109개 중 67개 (머지 제외)",["<b>API Gateway</b> — 경로 기반 라우팅, JWT 인증 필터, CORS, 서비스 3개의 Swagger 통합","<b>Member Service</b> — 카카오 로그인, Access · Refresh 토큰 발급과 재발급, 프로필 수정 · 탈퇴, 서비스 간 회원 조회 API","<b>Engagement Service</b> — 일정 등록 · 조회 · 삭제, 요일 반복 일정, 월간 캘린더, OpenFeign 기반 서비스 간 통신, 공통 응답 · 예외 처리"]],
+        ["Cloud Infra · CI/CD","단독",["서비스 4개의 Dockerfile과 <b>NKS 매니페스트 전체</b> 작성 (Deployment, Service, ConfigMap, Secret, PVC, RBAC)","<b>SourcePipeline</b>으로 코드 푸시부터 NKS 배포까지 자동화"]]],
+  troubles:[
+   {t:"Docker 내부 Gradle 빌드 실패 → 빌드와 이미지 패키징을 분리해 CI/CD 복구",
+    p:"SourceBuild에서 Docker 이미지 안의 Gradle 빌드가 계속 실패해 4개 서비스 배포가 모두 멈춤",
+    d:"통제할 수 없는 빌드 환경에 값을 맞추는 대신, 실패하는 단계(Docker 안 Gradle 빌드) 자체를 없앴습니다",
+    s:"JAR는 SourceBuild에서 빌드하고, Dockerfile은 JRE에 JAR만 담는 구조로 분리",
+    star:{S:"SourcePipeline으로 서비스 4개를 NKS에 자동 배포하려 했고, Dockerfile은 JDK 이미지에서 빌드해 JRE 이미지로 옮기는 멀티스테이지 구조였습니다.",T:"로컬에서는 되는 빌드가 SourceBuild에서만 실패해 파이프라인 전체가 멈췄고, 마감 안에 배포 경로를 확보해야 했습니다.",
+      A:["<b>가설 1. 환경 차이</b> — .gitignore의 .jar 규칙으로 빠져 있던 gradle-wrapper.jar와, 지원이 끝난 openjdk 베이스 이미지를 찾아 고쳤지만 실패는 계속됐습니다.","<b>가설 2. 빌드 컨테이너의 자원 한도</b> — JVM은 GC·JIT·Gradle 워커마다 스레드를 만들기 때문에, 컨테이너의 스레드 수(pids.max)나 메모리 한도에 걸릴 수 있다고 봤습니다. 한도를 출력하고 JVM 자원 사용을 줄여봤지만 원인을 확정하지 못했습니다.","<b>판단 → 실패하는 단계를 없앴다</b> — 튜닝은 통제할 수 없는 환경에 값을 맞추는 것이라 다시 깨질 수 있습니다. JAR는 SourceBuild에서 빌드하고, Dockerfile은 JRE에 JAR만 담도록 분리했습니다. JAR 이름은 서비스명으로 고정해 Dockerfile이 항상 같은 파일을 복사하게 했습니다."],
+      R:"4개 서비스가 모두 배포됐고, Dockerfile은 20여 줄에서 9줄로 줄었으며 실행 이미지에서 JDK·Gradle이 빠졌습니다."},
+    l:"설정값만 바꾸는 시도가 길어지면, 그 작업이 꼭 그 자리에서 일어나야 하는지부터 따져봐야 합니다."},
+   {t:"yml을 고쳐도 그대로였던 DB 연결 → 환경 변수가 설정을 덮어쓰고 있었다",
+    p:"첫 배포에서 MySQL이 뜨지 않았고, 뜬 뒤에도 앱 3개가 DB에 연결하지 못함",
+    dk:"핵심 원인", d:"앱이 실제로 읽던 DB 주소는 yml이 아니라 ConfigMap의 환경 변수였고, 그 값이 틀려 있었다",
+    s:"StorageClass를 클러스터에 있는 것으로 바꾸고, ConfigMap의 DB 주소를 실제 Service 이름으로 수정",
+    star:{S:"서비스 3개가 MySQL 하나를 스키마로 나눠 쓰고, DB 주소는 ConfigMap으로 주입했습니다.",T:"첫 배포에서 MySQL이 Pending에 멈추고 앱 3개가 DB에 연결하지 못했습니다.",
+      A:["<b>MySQL이 뜨지 않았다 → 볼륨 미생성</b> — 없는 StorageClass(<code>ncloud-csi-gp2</code>)를 참조해 볼륨이 생기지 않았고, <code>nks-block-storage</code>로 바꿔 해결했습니다.","<b>앱이 연결 못 한다 → 호스트 불일치</b> — DB 호스트(<code>mysql</code>)가 실제 Service 이름(<code>mysql-service</code>)과 달랐습니다.","<b>고쳤는데 그대로다 → 진짜 원인</b> — yml을 두 번 고쳤도 같았습니다. ConfigMap의 <code>SPRING_DATASOURCE_URL</code>이 환경 변수로 들어가 있었고, Spring Boot는 환경 변수를 yml보다 우선합니다. ConfigMap을 고치자 바로 연결됐습니다."],
+      R:"MySQL과 서비스 4개가 모두 정상화돼, 팀원들이 실제 클러스터에서 기능을 확인할 수 있게 됐습니다."},
+    l:"설정을 고쳤는데 그대로라면, 고친 곳이 아니라 그 값이 실제로 어디서 오는지부터 확인해야 합니다."}
+  ],
+  retroIntro:"프로젝트가 끝난 뒤 코드를 다시 읽으며, 설계 의도와 실제 코드 사이의 간극 두 가지를 발견했습니다.",
+  retro:[{t:"확장하려고 나눴지만, 확장하면 깨지는 코드였다",body:["일정 서비스만 따로 늘리려고 분리했지만, 그 안의 반복 일정 스케줄러는 파드마다 똑같이 실행됩니다. 중복 방지는 “이미 있는지 조회한 뒤 없으면 저장”뿐이었고, DB에 유니크 제약도 없었습니다. 파드가 2개가 되면 두 스케줄러가 동시에 “없음”을 확인하고 각자 저장해, 같은 일정이 두 번 생기는 구조였습니다."],imp:"ShedLock으로 여러 파드 중 하나만 스케줄러를 실행하고, (반복 그룹, 날짜) 유니크 제약으로 그래도 들어온 중복은 DB가 막는 이중 방어를 두겠습니다.",take:"확장은 파드 수를 늘린다고 되는 게 아니라, 서비스 안의 스케줄러와 상태까지 여러 인스턴스를 가정해야 성립합니다."},
+         {t:"서비스를 나누면 메서드 호출이 네트워크 호출이 된다",body:["Gateway는 토큰의 서명과 만료만 검증했고, 토큰에 담긴 사용자 식별값은 카카오 ID였습니다. 다른 서비스는 내부 회원 ID가 필요해서, 요청마다 Member를 호출해 토큰을 다시 검증하고 DB에서 회원을 조회해야 했습니다. 일정 조회는 여기에 일정마다 Planner 호출이 2번씩 더해져, 일정 10개면 내부 호출이 21번 일어났습니다."],imp:"토큰 발급 때 회원 ID를 담고 Gateway가 검증 후 헤더로 넘겨, 서비스는 Member를 부르지 않고 바로 쓰게 하겠습니다. Planner 조회는 ID 목록을 한 번에 받는 API로 바꿉니다.",take:"MSA에서는 어떤 서비스가 어떤 데이터를 갖고 누구를 신뢰할지가 곧 성능과 장애 전파 범위를 결정합니다."}]
+},
+{
+  slug:"seoulmate", name:"서울메이트", tagline:"유학생과 한국 학생을 잇는 교류 플랫폼",
+  period:"2025.07 – 2025.08", start:202507, end:202508, team:"8명 — Frontend(React) 3, Backend 3", role:"Backend (친구 · 채팅 · 배포)",
+  award:"구름톤 유니브 4기 연합 프로젝트 · 서울 데모데이", cats:["infra"],
+  cover:{img:"cv_seoul"},
+  summary:"한국 대학의 유학생과 한국 학생이 언어·관심사로 친구를 찾고, 모임과 채팅으로 교류하는 소셜 플랫폼. 백엔드로 친구 · 실시간 채팅 · 배포를 맡았습니다.",
+  highlights:[["2025.08 서울 데모데이 참가",""],["1:1 · 모임 실시간 채팅","Redis Pub/Sub + STOMP로 구현, 커밋된 메시지만 전달"]],
+  stack:["Java 17","Spring Boot","Spring Security (OAuth2 · 세션)","JPA","WebSocket (STOMP)","Redis","AWS EC2","S3 (presigned URL)","Docker Compose","GitHub Actions"],
+  links:[{t:"GitHub",u:"https://github.com/seoulmate7/Seoulmate_Backend"},{t:"발표자료",u:"https://drive.google.com/drive/folders/1wr5lME3ocrylp2lJl4yGBTbpQVWOH7r4"}],
+  quote:"같은 학교인데, 말 걸 계기가 없어요.",
+  why:["같은 캠퍼스에 있어도 유학생과 한국 학생은 언어 장벽 때문에 먼저 다가가기 어렵습니다.","서울메이트는 가입 때 언어 수준을 확인하고, 언어와 관심사를 기준으로 맞는 친구와 모임을 추천해 교류의 계기를 만듭니다."],
+  fx:[
+    {img:"sc_seoul15",t:"메인 · 모임",d:"추천 모임과 학교 모임 카테고리, 한국어 클래스를 둘러보고 관심사에 맞는 정기 · 사설 모임에 참여합니다."},
+    {img:"sc_seoul21",t:"친구 · 친구 추천",d:"모임에서 만난 사람의 언어 · 관심사를 보고 친구를 맺습니다. 언어 실력과 관심사 궁합으로 친구를 추천합니다.",m:"친구 · 추천 API"},
+    {img:"sc_seoul22",t:"1:1 · 모임 채팅",d:"친구와 개인 채팅을 하고, 같은 모임 참여자끼리는 그룹 채팅방에서 이야기합니다. 안 읽은 메시지 수도 보여줍니다.",m:"실시간 채팅 · 읽음 처리"},
+    {t:"언어 매칭",d:"가입할 때 언어 테스트로 수준을 확인하고, 사용하는 언어와 배우고 싶은 언어를 기준으로 매칭합니다."}],
+  archImg:"arch_seoul", archLead:"Route 53 · ACM으로 HTTPS 도메인을 붙이고, ALB 뒤 EC2 한 대에서 앱 · MySQL · Redis를 Docker Compose로 운영합니다. 채팅 메시지는 Redis Pub/Sub으로 STOMP 구독자에게 전달하고, 파일은 S3에 저장하며, GitHub Actions로 EC2에 자동 배포합니다.",
+  points:[],
+  work:[["Backend","",["<b>친구</b> — 친구 요청 · 수락/거절 · 삭제, 친구 · 요청 목록, 친구 검색, 언어 실력 · 관심사 기반 친구 추천","<b>실시간 채팅</b> — STOMP + Redis Pub/Sub 기반 채팅 구조 설계, 1:1 · 모임 채팅방, 읽음 처리와 안 읽은 메시지 수, 커밋 이후 메시지 발행, 세션 로그인과 STOMP 인증 연동"]],
+        ["Infra","",["<b>배포 환경</b> — Docker Compose로 앱 · MySQL · Redis 구성, GitHub Actions → EC2 자동 배포 파이프라인 구축"]]],
+  troubles:[
+   {t:"저장되지 않은 메시지가 먼저 보일 수 있다 → 커밋 이후에만 Redis 발행",
+    p:"메시지 저장 트랜잭션 안에서 바로 브로드캐스트하면, 저장이 실패해도 상대방에게 메시지가 표시되거나 조회 시 메시지가 없는 문제가 생길 수 있음",
+    d:"메시지 전송의 기준을 DB에 정상적으로 커밋된 메시지로 정의하고, 저장과 전송의 책임을 분리",
+    s:"MessageSaved 이벤트와 <code>@TransactionalEventListener(AFTER_COMMIT)</code>으로 커밋 이후에만 Redis로 발행하고, <code>@Async</code>로 비동기 처리",
+    star:{S:"채팅 메시지를 DB에 저장하고, 같은 방을 구독 중인 사용자들에게 실시간으로 전달해야 했습니다.",T:"DB 저장과 전송 순서가 어긋나면 저장되지 않은 메시지가 상대방에게 보일 수 있었습니다. 서버가 여러 대인 환경에서도 모든 채팅방 사용자에게 전달할 수 있어야 했습니다.",
+      A:["<b>저장과 전송 분리</b> — 채팅 서비스는 DB 저장 후 MessageSaved 이벤트만 발행하고, 실제 전송은 별도 리스너가 처리하도록 책임을 나눴습니다.","<b>커밋 이후 비동기 전송</b> — AFTER_COMMIT으로 커밋 성공 시에만 전송하고, @Async 전용 스레드 풀로 요청 스레드의 전송 대기 부담을 줄였습니다.","<b>Redis Pub/Sub 브로드캐스트</b> — 채팅방별 <code>room:{roomId}</code> 채널에 발행하고, 각 서버가 받아 <code>/topic/room.{roomId}</code>로 STOMP 브로드캐스트하도록 구성했습니다."],
+      R:"롤백 시 저장되지 않은 메시지가 전송되는 문제를 막아 DB 저장과 메시지 전달 간 정합성을 개선했습니다. 비동기 처리로 요청 스레드 부담을 줄였고, 다중 서버에서도 브로드캐스트할 수 있는 구조를 마련했습니다."},
+    l:"실시간 채팅에서는 빠른 전달만큼 DB 저장과 전송의 순서 보장이 중요하다는 점, 그리고 이벤트 기반으로 기능 간 책임을 나누는 방법을 배웠습니다."},
+   {t:"로그인했는데 채팅만 인증이 안 된다 → HTTP 세션 인증을 STOMP 세션으로 전달",
+    p:"REST API에서는 정상 인증되지만, WebSocket 메시지 전송 시 현재 사용자 정보를 찾지 못해 인증 오류 발생",
+    dk:"핵심 원인", d:"HTTP 요청과 STOMP 메시지는 서로 다른 스레드에서 처리되어, HTTP 세션의 인증 정보가 STOMP 메시지 처리 과정에 전달되지 않았습니다",
+    s:"WebSocket 연결 시 HTTP 세션 정보를 전달하고, STOMP 연결 및 메시지 처리 과정에서 인증 정보를 설정",
+    star:{S:"Google OAuth2 기반 세션 로그인을 사용했고, 채팅은 SockJS 기반 STOMP(/ws)로 구현했습니다.",T:"STOMP 메시지 처리 시 SecurityContextHolder에 인증 정보가 없어 현재 사용자를 조회할 수 없었고, 기존 인증 로직을 유지하면서 해결해야 했습니다.",
+      A:["<b>원인 분석</b> — HTTP 요청은 Spring Security 필터로 인증 정보가 설정되지만, STOMP 메시지는 별도 스레드에서 처리되어 기존 인증 정보를 조회하지 못했습니다.","<b>HTTP 세션 전달</b> — <code>HttpSessionHandshakeInterceptor</code>로 WebSocket 연결 시 HTTP 세션 속성을 전달했습니다.","<b>STOMP 사용자 등록</b> — CONNECT 단계에서 세션의 <code>SPRING_SECURITY_CONTEXT</code>를 조회해 인증된 사용자를 STOMP 세션에 등록했습니다.","<b>인증 정보 바인딩</b> — SEND · SUBSCRIBE 처리 시 SecurityContextHolder에 인증 정보를 설정하고, 처리 후 정리해 스레드 간 인증 정보가 섞이지 않게 했습니다."],
+      R:"REST API와 WebSocket에서 같은 로그인 정보를 쓸 수 있게 됐고, 기존 사용자 조회 로직을 바꾸지 않고 채팅 인증 문제를 해결했습니다."},
+    l:"로그인 상태뿐 아니라 요청을 처리하는 스레드에 인증 정보가 제대로 전달되는지가 중요하다는 점, HTTP와 WebSocket의 인증 처리 방식 차이를 배웠습니다."}
+  ],
+  retro:[]
+},
+{
+  slug:"everylol", name:"Every.LOL", tagline:"LCK 팬을 위한 승부 예측 · 정보 · 커뮤니티 앱",
+  period:"2024.07 – 2026.07", start:202407, end:202607, team:"리뉴얼 당시 7명 — Android 2, Server 3", role:"Server / Android",
+  award:"앱 출시 · 서울 / 부산(너디너리) 데모데이", cats:["live"],
+  cover:{img:"cv_lol"},
+  summary:"LCK 팬을 위한 승부 예측 · 경기 정보 · 커뮤니티 앱. 첫 프로젝트로 Android 개발에 참여해 출시까지 마쳤고, 2026 시즌 리뉴얼에서는 서버로 역할을 바꿔 경기 일정·결과를 사람 손 없이 채우는 자동 동기화를 만들었습니다.",
+  highlights:[["앱 출시","서울 · 부산(너디너리) 데모데이 참가"],["경기 데이터 자동 동기화","네이버 e스포츠 일정에서 경기 일정 · 결과 · 세트 승자를 가져와, 관리자 수동 입력 없이 승부 예측 · POG 투표가 열리도록 함"]],
+  stack:["Java 17","Spring Boot","Spring Data JPA","Spring Scheduling","Jsoup","MySQL","Redis","WebSocket","Docker","Nginx 블루/그린","GitHub Actions","Kotlin (Android)"],
+  links:[{t:"Google Play",u:"https://play.google.com/store/apps/details?id=umc.everyones.lck&pli=1"},{t:"GitHub (server)",u:"https://github.com/everyones-lck/lck-server"},{t:"GitHub (android)",u:"https://github.com/everyones-lck/lck-android"}],
+  quote:"오늘 경기, 누가 이길까?",
+  why:["LCK 팬은 경기 일정은 네이버에서, 중계는 치지직에서, 이야기는 커뮤니티에서 따로 찾습니다.","Every.LOL은 경기 전에는 예측하고, 경기 중에는 같이 보고, 경기 후에는 MVP를 뽑는 흐름을 한 앱에 모았습니다. 2026 시즌에는 응원팀 중심으로 화면을 다시 구성했습니다."],
+  fx:[
+    {img:"lol_home",phone:1,t:"홈",d:"응원팀 경기 알림, 오늘 경기 카드, 승부 예측 현황, LCK 소식과 순위를 한 화면에서 봅니다. 경기 정보는 경기 동기화가, 소식은 뉴스 크롤러가 채웁니다.",m:"경기 동기화 · 뉴스 크롤러"},
+    {img:"lol_today",phone:1,t:"Today's Matches",d:"오늘 열리는 경기와 승부 예측 비율을 보고, 경기를 보러 가거나 오픈톡에 들어갑니다. 예정 · 진행 · 종료 상태는 1분마다 동기화됩니다.",m:"경기 상태 동기화"},
+    {img:"lol_vote",phone:1,t:"승부 예측 · POG / POM 투표",d:"경기 전에는 이길 팀을 예측하고(시작하면 잠김), 세트가 끝날 때마다 POG, 경기가 끝나면 POM을 뽑습니다. 세트가 끝나면 1분 안에 해당 세트 투표가 열립니다.",m:"세트 결과 동기화"},
+    {img:"lol_about",phone:1,t:"About LCK",d:"날짜별 경기 결과와 투표 결과, 팀 순위를 봅니다. 첫 시즌에 이 화면을 Android로 만들었고, 리뉴얼 후에는 날짜별 경기 조회 API를 만들었습니다.",m:"Android 구현 · 서버 API"},
+    {img:"lol_comm",phone:1,t:"커뮤니티",d:"주간 인기글과 잡담 · 질문 · 후기 게시판에서 사진 · 영상을 첨부해 이야기합니다."},
+    {img:"lol_my",phone:1,t:"마이페이지",d:"응원팀을 설정하고, 내가 쓴 글과 MVP · 승부 예측 투표 내역을 확인합니다."}],
+  archLead:"맥 미니 자체 서버 위에 Docker로 띄우고, Nginx 블루/그린으로 무중단 배포하는 구조입니다.",
+  arch:{rows:[[["Android App"]],[["Nginx","블루/그린 무중단 배포"]],[["Spring Boot ×2","Docker · 맥 미니 자체 서버"]],[["동기화 스케줄러","네이버 경기 일정 · 결과 · 뉴스",1],["Redis","오픈톡 Pub/Sub · 투표 집계"],["MySQL"]]],
+    pipe:["GitHub Actions (self-hosted)","Docker","Blue/Green","Slack 알림"], legend:"외부 데이터 동기화를 맡았습니다"},
+  points:[["무중단 배포","새 버전을 반대쪽 색(블루/그린)에 띄운 뒤 Nginx 트래픽을 넘기고, 진행 상황을 Slack 스레드로 알립니다."],["컨테이너 2대","오픈톡 메시지는 Redis Pub/Sub으로 두 컨테이너에 모두 전달해, 어느 컨테이너에 붙은 사용자도 같은 채팅을 봅니다."],["투표 집계","승부 예측 투표는 Redis Lua 스크립트로 원자적으로 집계합니다."],["외부 데이터 동기화","경기 일정 · 결과와 뉴스는 스케줄러가 네이버에서 읽어 MySQL에 반영합니다. 이 부분을 맡았습니다."]],
+  work:[["Server","2026.03–07",["<b>경기 일정·결과 자동 동기화</b> — 네이버 e스포츠 일정을 주 단위로 읽어 경기 생성, 상태(예정·진행·종료) 갱신, 세트 승자 기록, 다시보기 URL 반영","<b>시즌 구조에 맞춘 스키마 재설계</b> — 라운드 · 그룹 · 라운드별 참가 팀 · 대회 기간 엔티티 추가, 시즌별 라운드 매칭","<b>API</b> — 날짜별 경기 조회, 경기가 있는 날짜 목록 조회, 홈 알림 API","<b>LCK 뉴스 크롤러</b> — 언론사 · 시각 · 썸네일 파싱, LCK 관련 기사만 필터링","<b>정리</b> — 쓰지 않는 뷰잉 파티 기능 코드 제거, 운영·QA 컨테이너 타임존(Asia/Seoul) 통일"]],
+        ["Android","2024.07–2025.12",["사용자 앱의 About LCK 파트(경기 일정, 팀 순위, 팀 · 선수 상세) 화면 구현과 API 연동","관리자 앱에서 팀 로스터 · 코치 · 순위 · 우승 기록 편집 화면 구현과 API 연동"]]],
+  troubles:[
+   {t:"경기 데이터를 사람이 넣어야 투표가 열린다 → 확정 일정과 실시간 결과를 나눈 자동 동기화",
+    p:"경기 일정과 세트 결과를 관리자가 직접 입력해야 승부 예측·POG 투표가 열려, 입력이 늦으면 투표도 늦어짐",
+    d:"“앞으로의 일정”과 “지금 진행 중인 경기”는 바뀌는 속도가 달라서, 주기와 범위를 나눠 동기화했습니다",
+    s:"확정 일정은 1시간마다 앞으로의 주차를 훑어 반영하고, 이번 주 경기는 1분마다 점수 변화를 세트 단위로 기록",
+    star:{S:"경기·세트 데이터는 관리자 앱으로 입력하고 있었고, 기존 외부 API 기반 스케줄러는 새 시즌 구조(라운드·그룹)를 담지 못해 쓰지 않고 있었습니다.",T:"시즌 중에는 매주 여러 경기가 열리고, 세트가 끝날 때마다 POG 투표가 열려야 합니다. 사람이 입력하지 않아도 일정과 결과가 들어오게 해야 했습니다.",
+      A:["<b>스키마부터 맞췄다</b> — 네이버 일정의 시즌 · 라운드 · 그룹 구조를 담을 수 있게 라운드, 그룹, 라운드별 참가 팀 엔티티를 추가했습니다.","<b>주기를 둘로 나눴다</b><div class=\"tbl\"><table><thead><tr><th>작업</th><th>주기</th><th>범위</th></tr></thead><tbody><tr><td>확정 일정 동기화</td><td>1시간</td><td>이번 주부터 앞으로, 2주 연속 확정 경기가 없으면 탐색 중단 (최대 30주)</td></tr><tr><td>실시간 결과 동기화</td><td>1분</td><td>이번 주 경기 중 진행 중·종료·점수가 있는 경기만</td></tr></tbody></table></div>대진이 정해지지 않은 경기(TBD)는 건너뛰고, 확정된 경기만 반영했습니다.","<b>세트는 점수 차이로 한 개씩 기록했다</b> — 저장된 세트 승수와 현재 점수를 비교해, 한 팀 점수가 1 늘었을 때만 다음 세트를 만들고 승자를 기록했습니다. 한 번에 2세트 이상 늘거나 맞지 않는 변화는 잘못된 세트를 만들지 않고 경고 로그로 남겼습니다.","<b>경기 상태를 결과에서 정했다</b> — 종료 표시가 있으면 점수로 승패를 정하고, LIVE 표시·점수·다시보기 URL 중 하나라도 있으면 진행 중으로 봤습니다."],
+      R:"경기 일정 · 진행 상태 · 세트 승자 · 다시보기 URL이 사람 입력 없이 들어오게 됐고, 세트가 끝나면 1분 안에 해당 세트가 생겨 POG 투표를 이어갈 수 있게 됐습니다."},
+    l:"LCK 공식 API가 없어 네이버 경기 페이지의 제한된 정보로 세트 결과를 추론해야 했습니다. 불확실한 데이터는 임의로 저장하지 않고, 변경 빈도에 맞춰 동기화 주기를 나누는 것이 중요하다는 점을 배웠습니다."},
+   {t:"남의 페이지 구조에 기대는 파서 → 깨지지 않는 기준으로 다시 고르기",
+    p:"네이버 페이지를 파싱하는 구조라, 표기나 마크업이 조금만 달라도 경기·뉴스가 들어오지 않았음",
+    d:"페이지가 바뀌는 것을 막을 수는 없으니, 자주 바뀌는 값에 기대지 않는 기준으로 바꿨습니다",
+    s:"자동 생성 클래스 제거, LIVE 판정 신호 다중화",
+    star:{S:"경기 일정과 뉴스는 네이버 페이지를 Jsoup으로 파싱해 가져왔습니다.",T:"동기화를 켜자 진행 중인 경기가 예정으로 남거나, 뉴스가 비는 일이 생겼습니다.",
+      A:["<b>자동 생성 클래스명이 바뀌었다</b> — 뉴스 목록을 <code>SJix6D_cuATRVyy8Upie</code> 같은 빌드마다 바뀌는 클래스로 찾고 있어 어느 날 결과가 비었습니다. 의미 있는 고정 클래스와 <code>data-heatmap-target</code> 속성 기준으로 바꿨습니다.","<b>LIVE 판정이 한 곳에만 기대고 있었다</b> — 버튼 문구 하나로 진행 여부를 판단해 놓치는 경우가 있었습니다. 상태 표시 문구, 본문의 LIVE 텍스트, LIVE 아이콘 클래스 중 하나라도 있으면 진행 중으로 보게 했고, 날짜 블록이 다른 마크업으로 오는 경우도 처리했습니다."],
+      R:"마크업 변화에도 경기와 뉴스가 안정적으로 들어오게 됐고, 실제 경기 진행에 맞춰 상태가 바뀌었습니다."},
+    l:"외부 웹페이지를 파싱할 때는 HTML 구조가 언제든 바뀔 수 있다는 전제로, 변경 가능성이 높은 클래스명보다 안정적인 속성을 쓰고 여러 신호로 데이터를 검증해야 합니다."}
+  ],
+  retro:[{t:"놓친 세트는 로그만 남겼다",body:["세트 점수가 한 번에 2 이상 바뀌면(동기화가 1분 이상 끊겼을 때) 잘못된 세트를 만들지 않으려고 경고 로그만 남기고 넘어갔습니다. 그래서 그 경기의 세트 기록이 비게 되고, 사람이 확인해야 했습니다."],imp:"경기가 끝난 뒤 세트별 결과를 다시 읽어 빈 세트를 채우는 보정 작업을 두겠습니다.",take:"실시간 동기화는 놓쳤을 때 어떻게 따라잡을지까지 설계해야 완성됩니다."}]
+},
+{
+  slug:"ssakssak", name:"싹싹푸드", tagline:"버려질 음식을 누군가의 한 끼로",
+  period:"2025.09 – 2025.11", start:202509, end:202511, team:"5명 — 백엔드 2, 프론트엔드·디자인·기획 3", role:"Backend · Cloud Infra",
+  award:"제9회 K-PaaS 활용 공모전 특별상 (한국클라우드컴퓨팅연구조합 이사장상)", cats:["award","infra"],
+  cover:{img:"cv_ssak"},
+  summary:"마감 임박 잉여식품을 할인 판매와 무료 나눔으로 연결하는 플랫폼. Backend와 Cloud Infra를 맡아 메뉴·재고, 예약·결제 도메인을 구현하고 NCP Kubernetes 인프라와 CI/CD를 구축했습니다.",
+  highlights:[["제9회 K-PaaS 활용 공모전 특별상","한국클라우드컴퓨팅연구조합 이사장상"],["2 vCore 클러스터에 파드 5개","자원 · 헬스체크 재설계"],["서버가 결제를 직접 검증","클라이언트 값을 믿지 않는 PortOne 결제 흐름 구현"]],
+  stack:["Java 17","Spring Boot","Spring Cloud Gateway","Spring Security","JWT","Spring Data JPA","OpenFeign","NCP NKS","Docker","NCR","Kustomize","SourcePipeline","Object Storage","MySQL 8.0","PortOne","Kakao Map"],
+  links:[{t:"발표자료",u:"https://drive.google.com/drive/folders/1neCuthDYbs9oj0tpndxx0lYx1lGEhg-r"}],
+  quote:"아직 먹을 수 있는데, 오늘 안 팔리면 버려진다.",
+  why:["국내 식품 폐기물은 연간 약 548만 톤(환경부)이고, 그중 상당수는 판매기한이 임박했다는 이유만으로 버려지는 잉여식품입니다. 사장님은 남은 재고를 손실로 떠안고, 소비자는 그 음식이 있는 줄도 모릅니다.","싹싹푸드는 남은 음식을 할인 판매와 무료 나눔으로 연결해, 소상공인 → 소비자 → 지역사회로 이어지는 선순환을 만드는 플랫폼입니다."],
+  tables:[{t:"차별점",head:["차별점","이렇게 다릅니다"],rows:[["경로 기반 탐색","기존 마감 할인 앱은 ‘지금 내 위치’ 주변만 보여줍니다. 출근·퇴근길처럼 매일 지나는 경로를 등록하면 경로 반경 2km 안의 매장을 지도에 띄워, 가는 길에 픽업할 수 있게 합니다."],["무료 나눔","사장님이 판매를 시작할 때 ‘급식카드 소지자 무료’를 선택하면, 아동급식카드를 등록한 사용자가 결제 없이 예약합니다."],["한 앱에서 역할 전환","소비자 앱과 사장님 앱을 따로 설치할 필요 없이, 같은 앱에서 역할만 바꿔 씁니다."]]}],
+  fx:[
+    {img:"sc_ssak13",t:"홈",d:"내 위치를 기준으로 할인율이 높은 잉여식품부터 보여주고, 빵 · 도시락 · 식재료 같은 카테고리로 걸러봅니다.",m:"메뉴 조회 API"},
+    {img:"sc_ssak14",t:"내 루트",d:"출근 · 퇴근길처럼 매일 지나는 출발지와 도착지를 정하면, 경로 반경 2km 안의 매장을 지도에 띄워 가는 길에 픽업할 수 있게 합니다."},
+    {img:"sc_ssak15",t:"예약 · 결제",d:"픽업 시간을 고르고 PortOne으로 결제합니다. 아동급식카드를 등록한 사용자는 결제 없이 무료로 예약합니다. 결제는 서버가 PortOne에 직접 확인한 뒤 확정합니다.",m:"예약 · 결제 검증 API"},
+    {img:"sc_ssak17",t:"사장님 홈",d:"메뉴를 등록하고 오늘 판매할 수량과 마감 시간을 정해 판매를 시작합니다. 마감 시간이 지나면 자동으로 내려갑니다.",m:"메뉴 · 재고 · 자동 만료"},
+    {img:"sc_ssak18",t:"주문 내역 (사장님)",d:"날짜별 예약을 확인하고, 취소하면 환불과 재고 복원까지 함께 처리됩니다.",m:"취소 · 환불 · 재고 복원"}],
+  archImg:"arch_ssak", archLead:"소비자와 판매자 도메인을 서비스 3개로 나누고, 상태는 컨테이너 밖에 둔 채 2 vCore 클러스터 안에서 돌아가는 구조입니다.",
+  points:[["소비자·판매자 기준의 도메인 분리","회원·인증(Member), 판매자의 가게·메뉴·재고(Catalog), 소비자의 예약·결제(Order)로 나눴습니다. 역할을 전환해도 책임이 섞이지 않고, 마감 시간대에 주문이 몰리면 Order만 따로 늘릴 수 있습니다."],["공개 경로를 명시적으로 관리하는 Gateway","외부에는 Gateway만 열고, JWT 없이 호출돼야 하는 경로(회원가입·이메일 인증, 비회원 홈, 결제 웹훅)만 화이트리스트로 열었습니다. 서비스 3개의 Swagger도 Gateway 한 곳에서 볼 수 있게 통합했습니다."],["상태는 컨테이너 밖으로","가게·메뉴·프로필·급식카드 이미지는 Object Storage에 두고 DB에는 URL만 남겼습니다. DB 데이터는 PVC에 두어, 파드가 재시작되거나 재배포돼도 사라지지 않습니다."],["한정된 자원을 전제로 한 배포 설정","파드마다 CPU·메모리 requests/limits를 명시하고, liveness와 readiness 프로브를 나눠 “아직 준비 안 됨”과 “멈춤”을 구분했습니다. 매니페스트는 Kustomize로 묶었습니다."]],
+  work:[["Backend","커밋 67 / 112 (머지 제외)",["<b>Order Service</b> — 예약 생성, PortOne 결제 검증과 예약 확정, 취소 · 환불 · 재고 복원, 주문 내역","<b>Catalog Service</b> — 판매자 메뉴 CRUD, 오늘의 판매 등록, 마감 시간 자동 만료 스케줄러, 고객 · 비회원 메뉴 조회, 가게 정보 API","<b>이미지 업로드</b> — 가게 · 메뉴 · 프로필 · 급식카드 이미지를 NCP Object Storage에 저장","<b>API Gateway</b> — 서비스별 라우팅, 공개 경로 관리, 서비스 3개의 Swagger 통합"]],
+        ["Cloud Infra · CI/CD","",["서비스 4개의 초기 구조와 Dockerfile, NKS 매니페스트(ConfigMap, Secret, PVC, RBAC, Kustomize) 작성","2 vCore 환경에 맞춘 자원 할당과 헬스체크 설계","SourcePipeline으로 코드 푸시부터 NKS 배포까지 자동화"]]],
+  troubles:[
+   {t:"2 vCore에서 파드가 뜨지 않았다 → 스케줄러는 사용량이 아니라 예약값을 본다",
+    p:"Gateway·서비스 3개·MySQL, 파드 5개가 정상 상태가 되지 않음",
+    dk:"핵심 원인", d:"CPU requests 합이 노드 할당량을 넘었고, 헬스체크 경로는 인증에 막혀 있었다",
+    s:"CPU requests 합 1,250m → 500m, 헬스체크 경로 허용, 프로브 대기 시간 조정",
+    star:{S:"공모전 제공 자원(2 vCore, 16GB)에 파드 5개를 각각 CPU requests 250m, limits 500m로 배포했습니다.",T:"파드들이 Ready가 되지 않아 API에 접근할 수 없었습니다.",
+      A:["<b>자리가 없다 → requests 합 초과</b> — 스케줄러는 실제 사용량이 아니라 requests 합으로 파드를 배치합니다. 5 × 250m = 1,250m에 시스템 파드의 requests까지 더하면 노드 할당량을 넘습니다. 노드 증설은 제공 자원을 넘고 서비스 통합은 MSA 설계와 맞지 않아, requests 100m · limits 250m로 낮췄습니다.","<b>떠도 Ready가 안 된다 → 헬스체크가 401</b> — 프로브를 <code>/actuator/health/liveness</code>, <code>/readiness</code>로 나눴는데 Gateway Security는 <code>/actuator/health</code>만 허용하고 있었습니다. liveness 실패로 재시작되고 readiness 실패로 트래픽에서 빠졌기에, 상태값만 노출되는 <code>/actuator/health/**</code>를 허용했습니다.","<b>limits를 낮춘 부작용 → 느린 기동</b> — CPU limit은 CFS quota로 동작해, 250m이면 100ms마다 25ms만 CPU를 씁니다. 기동 때 CPU를 많이 쓰는 Spring Boot가 다 뜨기 전에 liveness에 죽을 수 있어 프로브 대기 시간을 늘렸습니다. 팀원과 함께 프로브를 liveness · readiness 그룹으로 나눠 DB 장애가 앱 재시작으로 번지지 않게 했습니다."],
+      R:"5개 파드가 모두 Ready가 되어 Load Balancer로 API와 Swagger에 접근할 수 있게 됐습니다."},
+    l:"requests는 스케줄링을 위한 예약값, limits는 상한입니다. 자원이 적을수록 두 값과 프로브를 함께 설계해야 합니다."},
+   {t:"서버가 보지 못하는 결제 → 받은 값이 아니라 PortOne에 직접 확인한 값만 믿는다",
+    p:"결제는 앱의 PortOne 결제창에서 일어나, 서버는 결과를 전달받기만 하는 구조",
+    d:"클라이언트와 웹훅이 보낸 값은 믿지 않고, 금액은 서버가 정하고 결과는 서버가 직접 조회한다",
+    s:"금액 사전 등록 → 웹훅 수신 → PortOne 재조회 → 예약 확정 · 재고 차감",
+    star:{S:"예약을 만든 뒤 결제는 프론트의 PortOne SDK에서 진행되고, 서버는 결과를 웹훅으로 받는 구조였습니다.",T:"금액을 바꾼 결제나, 결제하지 않고 “성공”을 보내는 요청으로 예약이 확정되는 것을 막아야 했습니다.",
+      A:["<b>금액 조작 → 서버가 금액을 정해 미리 등록</b> — 예약 생성 때 서버가 판매가 × 수량으로 금액을 계산하고, 주문 번호(<code>merchant_uid</code>)와 함께 PortOne에 사전 등록했습니다. 등록한 금액과 다르면 결제가 진행되지 않습니다.","<b>결과 위조 → 받은 값 대신 직접 조회</b> — 웹훅은 인증 없이 열어야 하는 경로라 내용을 믿지 않았습니다. 받은 결제 번호(<code>imp_uid</code>)로 서버가 PortOne API를 다시 조회해, 실제 상태가 paid일 때만 예약을 확정하고 재고를 줄였습니다.","<b>취소 → 결제가 취소돼야 나머지도 되돌린다</b> — PortOne 결제 취소가 성공한 뒤에만 예약을 취소하고 재고를 복원했습니다."],
+      R:"서버가 PortOne에서 직접 확인한 결제만 예약 확정으로 이어지고, 확정과 재고 차감이 자동으로 처리됩니다."},
+    l:"외부 시스템과 연동할 때는 전달받은 값이 아니라 원천에 직접 확인한 값만 믿어야 합니다."}
+  ],
+  retroIntro:"프로젝트가 끝난 뒤 결제·재고 흐름을 다시 읽으며, 정상 흐름만 가정하고 만든 부분을 발견했습니다.",
+  retro:[{t:"결제와 재고가 따로 움직였다",body:["재고는 예약할 때 확인하고, 결제가 끝난 뒤 웹훅에서 줄였습니다. 결제창이 열려 있는 사이 다른 사람이 마지막 재고를 사면, 결제는 끝났는데 재고가 없는 상황이 생깁니다. 차감도 “조회 → 감소 → 저장”이라 동시에 들어오면 두 번 팔고 한 번만 줄 수 있었고, 같은 웹훅이 다시 오면 한 번 더 줄었습니다. 서비스별 DB와 외부 결제가 섞여 있어 하나의 트랜잭션으로 묶을 수도 없었습니다."],imp:"예약 시점에 재고를 먼저 잡고 미결제 예약은 일정 시간 뒤 풀어줍니다(“결제했는데 취소”보다 “결제 전 품절 안내”가 낫기 때문). 차감은 <code>UPDATE … WHERE quantity &gt;= :n</code> 같은 조건부 UPDATE로 DB가 판단하게 하고, 이미 확정된 예약의 웹훅은 무시해 몇 번 들어와도 결과가 같게 합니다.",take:"@Transactional은 DB 하나 안의 일관성만 지켜줍니다. 외부 결제와 서비스별 DB에 걸친 일관성은, 어느 단계에서 실패하거나 중복돼도 결과가 맞도록 흐름 자체를 설계해야 하는 별개의 문제라는 것을 배웠습니다."}]
+},
+{
+  slug:"fanmade", name:"FANMADE", tagline:"팬이 먼저 제안하는 응원 광고 크라우드펀딩",
+  period:"2025.08 (3일 해커톤)", start:202508, end:202508, team:"5명 — 사업 기획 2, 프론트엔드 1, 백엔드 2", role:"Backend",
+  award:"숭실대학교 교내 연합 해커톤 UNITHON 우수상 (스파르탄SW교육원 원장상)", cats:["award","hackathon"],
+  cover:{img:"cv_fan"},
+  summary:"팬이 원하는 응원 광고를 직접 제안하고 여러 팬이 함께 펀딩하는 ‘역제안’ 플랫폼. 3일 해커톤에서 시장과 수익 모델까지 함께 기획하고, 백엔드로 응원 광고 생성 흐름과 생성형 AI 광고 시안 기능을 구현했습니다.",
+  highlights:[["UNITHON 우수상","숭실대학교 교내 연합 해커톤 · 스파르탄SW교육원 원장상"],["시장 분석 · 수익 모델까지 갖춘 사업 기획","팬덤 응원 광고의 ‘총대’ 문제에서 출발"],["AI와 사용자의 역할을 나눠 기능 재설계","생성형 AI의 한계를 직접 확인"]],
+  stack:["Java 17","Spring Boot 3.3","Spring Security","JWT","Spring Data JPA","WebClient","MySQL","Google Cloud Vertex AI (Imagen)","AWS S3"],
+  links:[{t:"GitHub",u:"https://github.com/Honey-Beee/FANMADE_BE"},{t:"발표자료",u:"https://drive.google.com/drive/folders/1EghGWxyWCbMayFM4wMISlanM8vZy8zA_"}],
+  quote:"생일 광고 하나 올리려면, 총대 한 명이 모금부터 광고 계약까지 다 떠안는다.",
+  why:["팬들이 지하철·버스에 올리는 응원 광고는 보통 ‘총대’ 한 명이 개인 계좌로 돈을 모으고, 광고 매체를 찾고, 디자인까지 맡습니다. 자금 흐름은 불투명하고, 위험과 부담은 한 사람에게 몰립니다.","FANMADE는 팬이 원하는 프로젝트를 먼저 제안하고, 여러 팬이 플랫폼 안에서 함께 펀딩하는 ‘역제안’ 플랫폼입니다. 크리에이터가 만들고 팬이 소비하던 Top-down 구조를, 팬에서 시작하는 Bottom-up으로 뒤집었습니다.","공연·팬미팅·굿즈로 확장할 수 있는 구조지만, 3일 안에 보여줄 MVP로는 팬들이 이미 돈을 쓰고 있는 응원 광고 시장을 골랐습니다."],
+  tables:[{t:"왜 응원 광고부터인가 — 발표자료에서 조사한 시장 규모",head:["시장","규모"],rows:[["국내 팬덤 시장","약 10조 원 (2025)"],["국내 옥외 광고 중 팬덤 광고","약 9,000억 원"],["지하철 광고 중 팬덤 광고 비중","52.8%"]]},
+          {t:"어떻게 돈을 버는가",head:["수익원","내용"],rows:[["플랫폼 수수료","펀딩에 성공한 프로젝트 금액의 7%"],["프리미엄 AI 도구","AI 광고 디자인·기획 도구 구독 (월 9,900원)"],["B2B 데이터 SaaS","팬이 직접 제안한 수요 데이터를 기획사에 제공"]],note:"팬이 먼저 제안하고 돈을 모으는 구조라, 플랫폼에는 “팬들이 실제로 무엇에 돈을 낼 준비가 됐는가”라는 다른 곳에 없는 데이터가 쌓입니다."}],
+  features:[["응원 광고 만들기","아티스트와 목적, 기간과 목표 금액을 정하면 예산에 맞는 지하철·버스 광고 자리를 추천하고, 하나를 골라 펀딩을 엽니다."],["펀딩 · 후원","여러 팬이 함께 후원하고, 진행 중인 광고와 상위 후원자, 응원 댓글을 봅니다."],["AI 광고 시안","키워드를 입력하면 AI가 배경과 그래픽 시안을 만들고, 사용자가 아티스트 사진을 올려 직접 배치합니다."]],
+  archLead:"개발을 2일 안에 끝내기 위해 Spring Boot 단일 서버로 두고, 도메인별 패키지로 나눠 백엔드 2명이 병렬로 개발했습니다.",
+  points:[["외부 AI 호출 분리","프로젝트 ID · 리전 · 모델 · 서비스 계정 키는 설정으로 빼고, WebClient 필터에서 OAuth2 토큰을 갱신해 붙였습니다."],["공통 응답 · 예외","서비스가 규칙을 검증해 예외를 던지면, 공통 핸들러가 일관된 응답으로 바꿉니다."]],
+  work:[["Backend","",["<b>응원 광고 생성</b> — 예산 · 기간 기반 광고 자리 추천, 광고 자리 배정과 펀딩 오픈, 아티스트 추천 목록","<b>생성형 AI</b> — Vertex AI Imagen 연동, Base64 응답 API 구현","<b>기반 작업</b> — 회원가입 · 로그인 초기 구현, 엔티티 설계, 공통 응답 · 예외 처리","<b>기획</b> — 주제 선정과 응원 광고 MVP 범위 결정에 참여"]]],
+  troubles:[
+   {t:"5단계 중간 저장으로 복잡해진 광고 생성 → 최종 제출 중심으로 API 재설계",
+    p:"단계별 저장으로 이전·수정 시 API 호출이 반복되고, 제출하지 않은 광고가 자리를 점유함",
+    d:"작성 중인 값은 프론트에서 관리하고, 광고 자리 점유는 최종 제출 시점에만 수행",
+    s:"추천은 조회 API로 분리하고, 광고 생성 · 자리 배정은 비관적 락을 적용한 최종 제출 API로 통합",
+    star:{S:"응원 광고 생성을 아티스트 선택 → 펀딩 정보 → 광고 자리 선택 → 요약 → 제출의 5단계 Draft API로 구현하고, 단계마다 DB에 저장했습니다. 광고 자리는 선택하는 즉시 배정되는 구조였습니다.",T:"프론트와 연동하면서 사용자가 이전 단계로 돌아가 값을 수정할 수 있어야 했고, 펀딩이 열리지 않은 광고가 한정된 광고 자리를 점유하지 않도록 개선해야 했습니다.",
+      A:["<b>문제 확인</b> — 이전 단계로 돌아갈 때마다 저장된 값을 다시 조회하고 수정 사항을 저장해야 했습니다. 이미 자리를 고른 뒤 다른 자리로 바꾸면 ‘이미 자리가 설정된 광고’ 예외로 막혔고, 제출 전에 이탈한 DRAFT 광고도 자리를 계속 점유했습니다.","<b>API 구조 재설계</b> — 작성 중인 값은 프론트에서 관리하고, 서버는 자리 추천과 최종 제출만 담당하도록 나눴습니다. 추천 API는 목표 금액과 기간으로 조회만 하고, 최종 제출 API에서 광고 생성과 자리 배정을 하나의 트랜잭션으로 처리했습니다.","<b>동시성 제어</b> — 두 사용자가 같은 자리로 동시에 제출하면 둘 다 “비어 있음”을 볼 수 있으므로, 자리 조회에 비관적 락(<code>SELECT … FOR UPDATE</code>)을 걸어 먼저 잡은 요청만 배정되게 했습니다."],
+      R:"광고 생성 API를 5개에서 2개로 줄이고 서비스 코드 약 330줄을 줄였습니다. 이전 단계 이동 시 불필요한 API 호출이 사라졌고, 제출하지 않은 광고가 자리를 점유하는 문제도 해결했습니다."},
+    l:"API는 화면 단계마다 만드는 것이 아니라, 데이터가 실제로 확정되는 시점과 자원의 점유 시점을 기준으로 설계해야 합니다."}
+  ],
+  retro:[{t:"AI가 다 만들게 하지 않고, AI와 사용자의 역할을 나눴다",body:["처음에는 아티스트 사진을 넣으면 AI가 응원 광고 포스터 전체를 만드는 기능을 기획했습니다. 직접 Imagen으로 만들어 보니 실제 인물의 얼굴이 그대로 유지되지 않았고, 레이아웃도 원하는 대로 제어하기 어려웠습니다.","그래서 AI는 배경·효과·그래픽 같은 디자인 초안만 만들고, 아티스트 사진은 사용자가 직접 올려 배치하도록 바꾸었습니다. 팬 광고는 사진·배경·문구·프레임의 조합이 반복되는 패턴이라, 데이터가 쌓이면 템플릿 추천으로 발전시킬 수 있다고 봤습니다."],take:"기술을 붙이는 것보다, 기술이 잘하는 것과 못하는 것을 구분해 제품의 범위를 다시 정하는 것이 서비스를 완성시킨다는 것을 배웠습니다."}]
+},
+{
+  slug:"sumteo", name:"숨터", tagline:"제주 게스트하우스 큐레이션 · 예약 앱",
+  period:"2025.06 – 2025.08", start:202506, end:202508, team:"8명 — Android 4, Server 4", role:"Backend (예약 · 결제 · 환불)",
+  award:"UMC 8기 · 서울 데모데이", cats:[],
+  cover:{img:"cv_sum", pos:"left center"},
+  summary:"제주 게스트하우스를 조건으로 검색하고, 예약 · 결제 · 후기까지 한 앱에서 끝내는 플랫폼. 백엔드로 예약 · 결제(카카오페이) · 환불 도메인을 맡았습니다.",
+  highlights:[["2025.08.23 서울 데모데이 참가",""],["예약 흐름 전체 구현","카카오페이 결제부터 앱 복귀 · 예약 확정 · 환불까지"]],
+  stack:["Java 17","Spring Boot","Spring Data JPA","WebClient","KakaoPay API","Spring Scheduling","AWS EC2 · S3","Docker","GitHub Actions"],
+  links:[{t:"GitHub",u:"https://github.com/sumte-app/sumte-server"}],
+  quote:"파티 있는 곳, 여자 도미토리 있는 곳… 하나하나 찾기 힘들어요.",
+  why:["제주 게스트하우스는 파티 여부, 성별 도미토리, 수용 인원처럼 고르는 기준이 많지만, 이 조건으로 한 번에 찾아보기는 어렵습니다.","숨터는 게스트하우스에 맞는 조건으로 검색하고, 그 자리에서 예약 · 결제까지 할 수 있게 했습니다."],
+  features:[["상세 검색","수용 인원 · 가격대 · 위치 · 파티/교육 여부 · 성별 도미토리 여부로 필터"],["숙소 상세","사진 · 설명 · 위치 · 후기 평점"],["예약 · 결제","날짜 · 인원 → 도미토리/개인실 선택 → 카카오페이 결제 → 내 예약 내역"],["후기","별점 · 텍스트 · 사진 후기 (이용 완료한 예약만 작성 가능)"]],
+  work:[["Backend","",["<b>예약</b> — 예약 생성 · 상세 조회 · 취소, 내 예약 목록(후기 작성 가능 여부 포함), 게스트하우스 · 객실 기준 예약 불가 날짜 조회, 체크아웃이 지난 예약을 이용 완료로 바꾸는 스케줄러","<b>결제</b> — 카카오페이 결제 준비 · 승인 연동(WebClient), 결제 후 앱으로 돌아오는 리다이렉트, 결제 실패 상태 기록","<b>환불</b> — 환불 요청 · 승인, 승인 시 결제 · 예약 상태를 함께 변경"]]],
+  troubles:[
+   {t:"결제 완료 후 앱으로 복귀하지 못하는 문제 → Android Intent URL로 리다이렉트",
+    p:"카카오페이 결제 후 웹 URL로 이동하면서, 사용자가 앱으로 돌아와 결제 승인과 예약 확정을 진행하기 어려웠음",
+    d:"서버가 결제 결과를 수신한 뒤 앱으로 연결하는 중간 역할을 수행하도록 설계",
+    s:"결제 성공·취소·실패 URL을 서버에서 처리하고, HTTP 302 리다이렉트와 Android <code>intent://</code> URL로 앱 복귀 구현",
+    star:{S:"카카오페이는 결제 완료 후 사전에 등록된 웹 URL로 사용자를 이동시키고, 결제 승인에 필요한 pg_token을 전달하는 구조였습니다.",T:"앱에서 시작한 결제가 외부 결제 페이지를 거쳐 다시 앱으로 연결되어야 했고, 승인에 필요한 정보를 누락 없이 전달해야 했습니다.",
+      A:["<b>결제 결과 수신</b> — 결제 성공·취소·실패 URL을 서버의 <code>/pay/success</code>, <code>/pay/cancel</code>, <code>/pay/fail</code>로 지정해 결제 결과와 pg_token을 받았습니다.","<b>앱 복귀 방식 개선</b> — 커스텀 스킴(<code>myapp://</code>) 리다이렉트에서 앱 실행이 불안정해 Android Intent URL 방식으로 바꿨습니다.","<b>Intent URL 리다이렉트</b> — HTTP 302로 <code>intent://</code> URL을 반환해 앱을 실행하고, paymentId와 URL 인코딩된 pg_token을 전달했습니다.","<b>결제 승인 연동</b> — 앱이 전달받은 정보로 승인 API를 호출하면, 서버가 카카오페이 결제를 승인하고 상태를 PAID로 바꿨습니다."],
+      R:"카카오페이 결제 후 앱으로 정상 복귀해 결제 승인과 예약 확정까지 이어지는 흐름을 구현했습니다."},
+    l:"외부 결제 시스템과 모바일 앱을 연동할 때는 결제 결과의 전달 경로와 앱 복귀 방식을 함께 설계해야 합니다."},
+   {t:"미결제 예약이 객실을 점유하는 문제 → 결제 상태 기반 예약 가능 여부 판단",
+    p:"결제 전에 예약이 생성되는 구조에서, 미결제·취소된 예약까지 중복 검사에 포함되어 다른 사용자의 예약을 막음",
+    d:"예약 데이터의 존재 여부가 아니라, 결제 완료 여부를 기준으로 객실 점유 상태를 판단",
+    s:"결제 완료(PAID) · 미취소 예약만 중복 검사에 포함하고, 이용 완료 처리와 후기 작성 기준도 동일하게 적용",
+    star:{S:"예약은 ‘예약 생성 → 결제 요청 → 결제 승인’ 순서라, 결제를 중단해도 미결제 예약이 DB에 남았습니다.",T:"기존 중복 검사는 결제 상태와 관계없이 모든 예약을 대상으로 해, 미결제 예약이 다른 사용자의 정상 예약을 막는 문제를 해결해야 했습니다.",
+      A:["<b>예약 중복 검사 개선</b> — 예약·결제 테이블을 조인해 결제가 PAID이고 취소되지 않은 예약만 중복 검사에 포함했습니다. 예약 불가 날짜 조회 API에도 같은 조건을 적용했습니다.","<b>예약 상태 판단 기준 통일</b> — 이용 완료 스케줄러와 후기 작성 가능 여부도 결제 완료 기준으로 바꾸고, 예약 목록과 결제 금액 조회에도 실제 결제 상태와 금액을 반영했습니다.","<b>결제 실패 이력 보존</b> — pg_token 누락으로 승인에 실패하면 상위 트랜잭션이 롤백돼도 FAILED 상태가 남도록 <code>REQUIRES_NEW</code>로 트랜잭션을 분리했습니다."],
+      R:"미결제·취소된 예약이 객실을 점유하는 문제를 해결하고, 예약 가능 여부부터 이용 완료 · 후기 작성까지 결제 상태 기준으로 일관되게 처리했습니다."},
+    l:"예약과 결제처럼 여러 상태가 연결된 도메인에서는 명확한 상태 판단 기준을 정의하고 관련 기능에 일관되게 적용하는 것이 정합성 확보에 중요합니다."}
+  ],
+  retro:[]
+},
+{
+  slug:"yurok", name:"유록", tagline:"무빈소 장례를 위한 온라인 빈소",
+  period:"2026.08.24 – 08.26 (3일 해커톤)", start:202608, end:202608, team:"5명 · 백엔드 1명", role:"Backend · Infra (단독)", award:"", cats:["infra","hackathon"],
+  cover:{img:"cv_yurok", pos:"left center"},
+  summary:"빈소 없이 치르는 장례에서도 조문할 수 있도록, 빈소 입장부터 방명록·헌화·조의금·추모글까지 조문 절차를 링크 하나로 옮긴 서비스. 3일 해커톤에서 백엔드를 혼자 맡아 API부터 AWS 인프라와 자동 배포까지 구축했습니다.",
+  highlights:[["주제 [UNWORK]를 새롭게 해석","업무 자동화가 아닌 오프라인 절차 자체의 온라인 전환"],["백엔드 단독으로 서버 영역 전체 구축","도메인 설계부터 AWS 인프라 · CI/CD까지"],["회원가입 없는 조문 구조 설계","전화번호로 조문객을 식별하고 추모글 공개 범위를 제어"]],
+  stack:["Java 21","Spring Boot 4.1.1","Spring Data JPA","Springdoc OpenAPI","MySQL (AWS RDS)","AWS EC2 · S3 · CloudFront · IAM","GitHub Actions","systemd","Gemini API"],
+  links:[{t:"GitHub",u:"https://github.com/mango-flavored-claude/backend"},{t:"발표자료",u:"https://drive.google.com/drive/folders/185th_pIAcJFtAcJbKO93NKkBu_LJBuvg"}],
+  quote:"비용 때문에 빈소를 차리지 않으면, 조문할 자리도 함께 사라진다.",
+  why:["장례 비용 부담으로 빈소를 마련하지 못하거나, 거리와 시간의 제약으로 조문이 어려운 사람들이 있습니다. 유록은 물리적 빈소는 없지만 애도하고 싶은 사람은 존재하는 상황에 집중했습니다.","유록은 빈소 입장 → 방명록 → 헌화 → 조의금 → 추모글로 이어지는 조문 절차를 온라인으로 옮긴 빈소입니다. 72시간의 장례가 끝나면 빈소는 추억관으로 바뀌어, 조문객이 남긴 글과 그림이 계속 남습니다.","해커톤 주제 [UNWORK]를 기존 업무의 AI 자동화가 아니라, 오프라인 빈소에 의존하던 조문 절차를 온라인으로 전환하는 방향으로 해석했습니다. AI는 조문을 대체하는 대신, 추모글 속 기억을 그림으로 남기는 보조 수단으로 활용했습니다."],
+  tables:[{t:"UNWORK — 무엇을 사라지게 했나",head:["사라진 제약","남긴 가치"],rows:[["물리적 빈소 마련의 부담","링크 하나로 여는 온라인 빈소"],["조문을 위한 이동과 시간","어디서든 가능한 방명록 · 헌화"],["현장에서 전달하는 조의금","유가족 계좌를 통한 직접 전달"],["장례 이후 흩어지는 기억","추모글과 그림이 남는 추억관"]]},
+          {t:"제안 수익모델",head:["수익원","내용"],rows:[["온라인 빈소","글쓰기 인원 · 보관기간별 요금제 (기본 69,000원)"],["장례식장 연계","추천 · 연결 수수료 20%"]]}],
+  features:[["온라인 빈소 개설","고인 정보와 영정사진, 장례 일정과 조의금 계좌, 요금제를 3단계로 입력하면 초대 링크가 만들어집니다."],["온라인 조문","링크로 들어와 방명록을 쓰고 제단에 입장해 헌화하고, 조의금 계좌를 확인합니다."],["추모글 · 추억관","사진과 함께 추억을 남기고 공개 범위를 정합니다. 장례가 끝나면 추억관에서 계속 볼 수 있습니다."],["AI 추억 그림","추모글 속 장소 · 계절 · 사물을 수채화로 그려 줍니다. 고인의 얼굴은 그리지 않습니다."]],
+  archImg:"arch_yurok",
+  points:[["자동 배포","main에 push하면 GitHub Actions가 bootJar를 빌드해 EC2로 전송하고, systemd로 서비스를 재시작합니다."],["파일 저장","영정 · 추모 사진과 AI 그림은 S3에 저장하고 Presigned URL로 내려줍니다. EC2는 IAM Role로 S3에 접근해 키를 코드에 두지 않았습니다."],["HTTPS 진입점","브라우저 요청은 CloudFront가 HTTPS로 받아 EC2로 전달합니다."]],
+  work:[["Backend · Infra","백엔드 단독",["<b>조문 흐름 API</b> — 빈소 개설과 영정 업로드, 조문객 입장 · 재입장, 조의금 계좌 조회, 추모글 작성 · 목록 · 상세까지 서비스 흐름 전체","<b>비회원 조문객 식별</b> — 이름 · 관계 · 전화번호로 입장하고 같은 빈소에서는 전화번호로 재입장. 빈소 · 전화번호 유니크 제약으로 중복 등록을 막고, 비공개 추모글은 작성자에게만 반환","<b>AI 추억 그림</b> — Gemini로 추모글과 대표 사진을 수채화 그림으로 생성해 S3에 저장","<b>인프라 · 배포</b> — EC2 · RDS · S3 · CloudFront · IAM 구성, GitHub Actions와 systemd로 자동 배포","<b>기획</b> — UNWORK 주제 해석과 서비스 방향 결정에 참여"]]],
+  troubles:[
+   {t:"배포된 화면에서만 API가 막힌 문제 → CloudFront를 HTTPS 진입점으로",
+    p:"HTTPS로 배포된 프론트에서 HTTP인 EC2 API를 호출하자 브라우저가 요청을 차단함",
+    d:"도메인과 인증서를 준비할 시간이 없으니, 서버 앞에서 HTTPS를 대신 받아줄 계층을 둔다",
+    s:"CloudFront 기본 도메인을 HTTPS 진입점으로 두고 EC2 8080 포트로 전달",
+    star:{S:"백엔드는 EC2의 8080 포트에서 HTTP로 동작했고, 로컬 연동에서는 문제가 없었습니다. 마감 당일 아침 프론트를 GitHub Pages에 배포하자, 배포된 화면에서만 API 요청이 전부 실패했습니다.",T:"발표 전까지 배포 환경에서 빈소 개설부터 추모글까지 실제 흐름이 동작해야 했습니다.",
+      A:["<b>원인 확인</b> — 처음엔 CORS를 의심해 허용 Origin에 배포 주소를 추가했지만 그대로였습니다. 브라우저 콘솔을 보니 Mixed Content 차단이었습니다. HTTPS 페이지가 HTTP 주소로 보내는 요청은 브라우저가 서버에 보내지도 않습니다.","<b>방법 선택</b> — 서버에 직접 HTTPS를 붙이려면 Nginx와 Let's Encrypt를 쓸 수 있지만 도메인이 필요했고, 구매와 DNS 설정까지 할 시간이 없었습니다. CloudFront는 기본 도메인에 HTTPS가 바로 제공되어, 도메인 없이 진입점만 바꾸면 됐습니다.","<b>적용</b> — CloudFront의 원본을 EC2 8080 포트로 두고, 브라우저와 CloudFront 사이는 HTTPS, CloudFront와 EC2 사이는 HTTP로 연결했습니다. API 요청이므로 캐시 없이 모든 메서드를 그대로 전달하게 했습니다."],
+      R:"애플리케이션 코드 변경 없이 앞단 한 계층으로 문제를 해결했고, 배포된 화면에서 전체 조문 흐름이 동작했습니다."},
+    l:"로컬에서 되는 것과 배포 환경에서 되는 것은 다릅니다. 이후로는 HTTPS 진입점을 기능 개발이 끝난 뒤가 아니라 첫 배포 구성에 포함합니다."}
+  ],
+  retro:[{t:"‘무빈소 장례’를 하나의 사용자로 묶은 것이 타겟을 흐리게 했다",body:["심사에서 “무연고 사망처럼 애초에 조문할 사람이 없는 경우, 온라인 빈소는 무엇을 해결하나요?”라는 질문을 받았고, 그 자리에서 명확히 답하지 못했습니다.","돌아보니 ‘무빈소 증가’라는 현상 아래 서로 다른 문제를 하나의 타겟으로 묶고 있었습니다. 유록이 해결할 수 있는 문제는 비용이나 거리 등의 이유로 빈소를 차리기 어렵지만 애도하고 싶은 사람은 존재하는 경우였고, 무연고 사망은 생전 준비나 사회적 애도 등 다른 접근이 필요한 문제였습니다."],take:"시장이 크다는 것과 우리 제품이 해결할 수 있는 문제가 크다는 것은 다르며, 해결하지 않는 문제를 타겟에서 제외하는 것 역시 중요한 제품 판단이라는 것을 배웠습니다."}]
+}
+];
+
+
+/* ---------------- ICONS & POSTS */
+const ICON={
+ gh:'<svg viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>',
+ ts:'<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="currentColor"/><g fill="var(--ts-ink,#fff)"><circle cx="7.5" cy="8" r="1.7"/><circle cx="12" cy="8" r="1.7"/><circle cx="16.5" cy="8" r="1.7"/><circle cx="12" cy="12.3" r="1.7"/><circle cx="12" cy="16.6" r="1.7"/></g></svg>',
+ mail:'<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>',
+ phone:'<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg>',
+ arrow:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>'
+};
+const POSTS=[
+ {u:"https://ally0204.tistory.com/89",t:"토익 2주 벼락치기로 900점 넘기기",d:"2026.09.09",cat:"자격증",tag:"TOEIC",big:"940",ex:"졸업 조건인 영어 자격을 준비하며, 토익을 2주 동안 집중해서 900점을 넘긴 과정을 정리했습니다."},
+ {u:"https://ally0204.tistory.com/88",t:"섹션 10. Greedy Algorithm - 결혼식",d:"2026.05.20",cat:"Algorithm",tag:"Greedy",big:"Greedy",ex:"피로연에 동시에 존재하는 최대 인원을 구하는 문제를 시간 순 정렬과 그리디로 풀었습니다."},
+ {u:"https://ally0204.tistory.com/87",t:"섹션 10. Greedy Algorithm - 회의실 배정",d:"2026.05.20",cat:"Algorithm",tag:"Greedy",big:"Greedy",ex:"겹치지 않게 회의실을 쓸 수 있는 최대 회의 수를 끝나는 시간 기준 정렬로 구했습니다."},
+ {u:"https://ally0204.tistory.com/85",t:"섹션 9. DFS, BFS 활용 - 피자배달거리(DFS)",d:"2026.05.19",cat:"Algorithm",tag:"DFS",big:"DFS",ex:"피자집 중 M개를 골라 도시의 피자배달거리가 최소가 되는 조합을 DFS로 탐색했습니다."},
+ {u:"https://ally0204.tistory.com/84",t:"섹션 9. DFS, BFS 활용 - 섬나라 아일랜드(BFS)",d:"2026.05.18",cat:"Algorithm",tag:"BFS",big:"BFS",ex:"상하좌우와 대각선으로 연결된 섬의 개수를 BFS로 세는 문제입니다."},
+ {u:"https://ally0204.tistory.com/82",t:"섹션 9. DFS, BFS 활용 - 토마토(BFS)",d:"2026.05.18",cat:"Algorithm",tag:"BFS",big:"BFS",ex:"익은 토마토에서 동시에 퍼져 나가는 최소 일수를 다중 시작점 BFS로 구했습니다."}
+];
+
+/* ---------------- RENDER HELPERS ---------------- */
+const $ = s => document.querySelector(s);
+const app = $("#app");
+const esc = s => String(s);
+function cover(p, big){
+  const c=p.cover;
+  return `<div class="cover${big?' cs-cover':''}"><img src="${IMG[c.img]}" alt="${p.name} 대표 이미지" style="object-position:${c.pos||'center'}"${big?'':''}>${p.pending?'<span class="soon">정리 중</span>':''}</div>`;
+}
+function card(p){
+  return `<a class="card" href="#project-${p.slug}">
+    ${cover(p)}
+    <div class="card-body">
+      <div class="card-meta"><span>${p.period}</span><span>${p.role}</span></div>
+      <h3>${p.name}</h3>
+      <p class="sub">${p.tagline}</p>
+      ${p.award?`<p class="award">${p.award}</p>`:''}
+      <div class="tags">${p.stack.slice(0,4).map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+    </div></a>`;
+}
+const linkRow = p => p.links.length ? `<div class="links">${p.links.map(l=>`<a href="${l.u}" target="_blank" rel="noopener">${l.t} ↗</a>`).join('')}</div>`:'';
+
+/* ---------------- VIEWS ---------------- */
+function viewHome(){
+  const featured=["ssuport","kangaroutine","everylol"].map(s=>P.find(p=>p.slug===s));
+  return `
+  <section class="hero"><div class="wrap">
+    <div>
+      <div class="hero-top"><span class="pill">Backend Developer</span><span class="hero-links"><a href="https://github.com/hyowon0204" target="_blank" rel="noopener">${ICON.gh}<span>GitHub</span></a><a href="https://ally0204.tistory.com" target="_blank" rel="noopener" class="ts">${ICON.ts}<span>Tistory</span></a></span></div>
+      <h1>실제로 쓰이는 서비스를<br><em>만들고, 운영합니다.</em></h1>
+      <p class="lead">백엔드 개발자 장효원입니다. 학교 행정에 들어간 장학금 시스템, 공모전 수상작, 스토어에 출시한 앱까지 여러 프로젝트의 서버를 만들었고, 대부분은 배포 환경까지 직접 올렸습니다. 지금은 숭실대학교 특별장학금 시스템 SSUport를 운영하며, 만든 서비스가 실제 사용자에게 문제없이 닿도록 지키고 있습니다.</p>
+      <div class="cta"><a class="btn btn-primary" href="#projects">프로젝트 보기 →</a><a class="btn btn-ghost" href="#about">About me</a></div>
+    </div>
+    <div class="stack-shots" aria-label="대표 프로젝트">
+      <a class="shot-card s1" href="#project-ssuport"><img src="${IMG.cv_ssu}" alt="SSUport 대표 이미지"><span class="sc-cap"><b>SSUport</b><span>숭실대학교 특별장학금 시스템 · 운영 중</span></span></a>
+      <a class="shot-card s2" href="#project-kangaroutine"><img src="${IMG.cv_kang}" alt="캥거루틴 대표 이미지"><span class="sc-cap"><b>캥거루틴</b><span>제9회 K-PaaS 공모전 특별상 (네이버클라우드상)</span></span></a>
+    </div>
+  </div></section>
+
+  <section class="band"><div class="wrap narrow">
+    <div class="sec-head"><span class="eyebrow">What I've done</span><h2>숫자로 보는 장효원</h2></div>
+    <div class="claims">
+      <div class="claim"><div class="big">207<small>시범 도입 신청 건수</small></div>
+        <div><h3>학교 공식 행정에 들어간 서비스를 운영합니다.</h3>
+        <p>숭실대 특별장학금 통합 시스템 SSUport에서 백엔드를 맡아, 공인어학 장학금 시범 도입 2주 동안 <span class="u">207건</span>의 신청을 <span class="u">운영 에러 0건</span>으로 받았습니다. 이 결과로 2026-2학기 <b>특별장학금 전체로 확대 도입</b>됐습니다.</p></div></div>
+      <div class="claim"><div class="big">5<small>인프라까지 직접 맡은 프로젝트</small></div>
+        <div><h3>코드를 넘어 인프라까지 직접 올립니다.</h3>
+        <p>SSUport · 캥거루틴 · 싹싹푸드 · 서울메이트 · 유록, <span class="u">5개 프로젝트</span>에서 서버 개발과 함께 배포 환경을 직접 구축했습니다. 캥거루틴에서는 단일 서버를 약 3주 만에 MSA로 나누고 4개 서비스의 NKS 자동 배포를 혼자 구축해 <b>K-PaaS 공모전 특별상(네이버클라우드상)</b>을 받았습니다.</p></div></div>
+      <div class="claim"><div class="big">3<small>공모전 · 해커톤 수상</small></div>
+        <div><h3>마감 안에 동작하는 결과물로 검증받았습니다.</h3>
+        <p>K-PaaS 활용 공모전에서 서로 다른 두 팀으로 <span class="u">특별상 2회</span>(네이버클라우드상 · 한국클라우드컴퓨팅연구조합 이사장상), 교내 해커톤 UNITHON에서 <b>우수상</b>을 받았습니다. 첫 프로젝트였던 LCK 팬 앱은 출시까지 마쳤습니다.</p></div></div>
+    </div>
+  </div></section>
+
+  <section><div class="wrap">
+    <div class="toolbar" style="margin-bottom:40px;align-items:flex-end">
+      <div class="sec-head" style="margin:0"><span class="eyebrow">Selected work</span><h2>주요 프로젝트</h2></div>
+      <a class="btn btn-ghost" href="#projects">전체 ${P.length}개 보기 →</a>
+    </div>
+    <div class="grid">${featured.map(card).join('')}</div>
+  </div></section>
+
+  ${ctaBand()}`;
+}
+const ctaBand = () => `<section><div class="wrap"><div class="cta-card">
+  <div class="cta-copy">
+    <span class="eyebrow">Contact</span>
+    <h2>함께 일할 백엔드 개발자를 찾고 계신가요?</h2>
+    <p>메일이나 전화로 연락 주시면 감사하겠습니다.</p>
+    <a class="btn btn-primary" href="#contact">연락처 보기 →</a>
+  </div>
+  <ul class="cta-list">
+    <li class="row"><span class="ci">${ICON.mail}</span><div><small>Email</small><b>ally0204@naver.com</b></div></li>
+    <li class="row"><span class="ci">${ICON.phone}</span><div><small>Phone</small><b>010-7228-9731</b></div></li>
+    <li><a class="row" href="https://github.com/hyowon0204" target="_blank" rel="noopener"><span class="ci">${ICON.gh}</span><div><small>GitHub</small><b>@hyowon0204</b></div><span class="go">${ICON.arrow}</span></a></li>
+    <li><a class="row" href="https://ally0204.tistory.com" target="_blank" rel="noopener"><span class="ci ts">${ICON.ts}</span><div><small>Blog</small><b>ally0204.tistory.com</b></div><span class="go">${ICON.arrow}</span></a></li>
+  </ul>
+</div></div></section>`;
+
+let state={filter:"all",sort:"pick"};
+try{const s=JSON.parse(localStorage.getItem("pf-state")||"null"); if(s) state=Object.assign(state,s);}catch(e){}
+function viewProjects(){
+  const F=[["all","전체"],["award","수상"],["live","운영 · 출시"],["infra","인프라"],["hackathon","해커톤"]];
+  return `<section style="padding-block:72px 96px"><div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Projects</span><h2>프로젝트</h2><p>지금까지 참여한 프로젝트입니다. 카드를 누르면 서비스 소개, 주요 기능, 아키텍처, 문제 해결 과정을 자세히 볼 수 있어요.</p></div>
+    <div class="toolbar">
+      <div class="chips" role="group" aria-label="분류">${F.map(([k,v])=>`<button class="chip" data-f="${k}" aria-pressed="${state.filter===k}">${v}</button>`).join('')}</div>
+      <label class="sort" for="sortSel">정렬
+        <select id="sortSel"><option value="pick">추천순</option><option value="recent">최신순</option><option value="old">오래된순</option></select></label>
+    </div>
+    <p class="count" id="count"></p>
+    <div id="plist"></div>
+  </div></section>`;
+}
+function fillProjects(){
+  let list=P.filter(p=>state.filter==="all"||p.cats.includes(state.filter));
+  if(state.sort!=="pick"){
+    list=[...list].sort((a,b)=>{ if(!a.end) return 1; if(!b.end) return -1;
+      return state.sort==="recent" ? (b.end-a.end)||(b.start-a.start) : (a.start-b.start); });
+  }
+  const hack=list.filter(p=>p.cats.includes("hackathon")), main=list.filter(p=>!p.cats.includes("hackathon"));
+  $("#plist").innerHTML = (state.filter==="all" && hack.length && main.length)
+    ? `<div class="grid">${main.map(card).join('')}</div><div class="sub-head"><h3>해커톤</h3><p>2~3일 안에 기획부터 배포까지 끝낸 단기 프로젝트입니다.</p></div><div class="grid">${hack.map(card).join('')}</div>`
+    : `<div class="grid">${list.map(card).join('')}</div>`;
+  $("#count").textContent=`${list.length}개 프로젝트`;
+  $("#sortSel").value=state.sort;
+  document.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed",c.dataset.f===state.filter));
+  try{localStorage.setItem("pf-state",JSON.stringify(state))}catch(e){}
+}
+
+function archHTML(a){
+  return `<div class="arch"><div class="arch-inner">${a.rows.map((r,i)=>`${i?'<div class="arrow"></div>':''}<div class="arow">${r.map(n=>`<div class="node${n[2]?' hl':''}"><b>${n[0]}</b>${n[1]?`<small>${n[1]}</small>`:''}</div>`).join('')}</div>`).join('')}
+  ${a.pipe?`<div class="pipe"><em>CI/CD</em>${a.pipe.map(x=>`<span>${x}</span>`).join('<em>→</em>')}</div>`:''}
+  </div>${a.legend?`<p class="arch-legend">${a.legend}</p>`:''}</div>`;
+}
+function fxHTML(list){
+  const withImg=list.filter(x=>x.img&&!x.phone), phones=list.filter(x=>x.phone), text=list.filter(x=>!x.img);
+  const badge=x=>x.m?`<span class="mine">${x.m}</span>`:'';
+  const rows=withImg.map((x,i)=>`<div class="fx${x.small?' small':''}">
+      <div class="fx-text"><span class="fx-no">${String(i+1).padStart(2,'0')}</span><h3>${x.t}</h3>${x.tag?`<span class="fx-tag">${x.tag}</span>`:''}<p>${x.d}</p>${badge(x)}</div>
+      <button type="button" class="fx-img${x.tall?' tall':''}" data-zoom="${x.img}" aria-label="${x.t} 화면 크게 보기"><img src="${IMG[x.img]}" alt="${x.t} 화면">${x.tall?'<span class="more">전체 화면 보기</span>':''}</button>
+    </div>`).join('');
+  const ph=phones.length?`<div class="fx-phones">${phones.map(x=>`<div class="fxp"><button type="button" class="fxp-img" data-zoom="${x.img}" aria-label="${x.t} 화면 크게 보기"><img src="${IMG[x.img]}" alt="${x.t} 화면"></button><h3>${x.t}</h3><p>${x.d}</p>${badge(x)}</div>`).join('')}</div>`:'';
+  const tx=text.length?`<div class="feat fx-rest">${text.map(x=>`<div><h4>${x.t}</h4><p>${x.d}</p></div>`).join('')}</div>`:'';
+  return `<div class="fx-list">${rows}</div>${ph}${tx}`;
+}
+function shotHTML(x,cls){
+  return `<figure class="shot${cls?' '+cls:''}"><button type="button" data-zoom="${x.img}" aria-label="${x.t} 크게 보기"><img src="${IMG[x.img]}" alt="${x.t} 화면"></button>
+    <figcaption><div class="cap-top"><h4>${x.t}</h4>${x.m?`<span class="mine">${x.m}</span>`:'<span class="svc">서비스 화면</span>'}</div><p>${x.d}</p></figcaption></figure>`;
+}
+function screensHTML(p){
+  const phones=p.screens.filter(x=>x.phone), rest=p.screens.filter(x=>!x.phone);
+  return `<div class="screens">${phones.length?`<div class="shot-row">${phones.map(x=>shotHTML(x)).join('')}</div>`:''}${rest.map(x=>shotHTML(x,x.half?'half':'')).join('')}</div>`;
+}
+const CHEV='<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+function trHTML(t,i){
+  const S=t.star;
+  return `<article class="tr">
+    <div class="tr-head">
+      <span class="tr-no">TROUBLESHOOTING ${String(i+1).padStart(2,'0')}</span>
+      <h3>${t.t}</h3>
+      <dl class="tr-sum"><dt>문제</dt><dd>${t.p}</dd><dt>${t.dk||'핵심 판단'}</dt><dd>${t.d}</dd><dt>해결</dt><dd>${t.s}</dd></dl>
+    </div>
+    ${S?`<details><summary><span><span class="t-open">문제 해결 과정 자세히 보기</span><span class="t-close">접기</span><small>상황 · 과제 · 행동 · 결과</small></span><span class="chev">${CHEV}</span></summary><div class="star">
+      <div class="step"><span class="lt">S</span><div><h5>상황</h5><p>${S.S}</p></div></div>
+      <div class="step"><span class="lt">T</span><div><h5>과제</h5><p>${S.T}</p></div></div>
+      <div class="step"><span class="lt">A</span><div><h5>행동</h5><ul>${S.A.map(x=>`<li>${x}</li>`).join('')}</ul></div></div>
+      <div class="step"><span class="lt">R</span><div><h5>결과</h5><p>${S.R}</p></div></div>
+    </div></details>`:''}
+    <p class="lesson"><b>배운 점</b>${t.l}</p>
+  </article>`;
+}
+const tblHTML = x => `<div class="tbl"><table><thead><tr>${x.head.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${x.rows.map(r=>`<tr>${r.map((c,i)=>i?`<td>${c}</td>`:`<th scope="row">${c}</th>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+function viewProject(slug){
+  const i=P.findIndex(p=>p.slug===slug); if(i<0) return viewProjects();
+  const p=P[i], prev=P[(i-1+P.length)%P.length], next=P[(i+1)%P.length];
+  const pager=`<section style="padding-block:40px 88px"><div class="wrap"><div class="pager">
+      <a href="#project-${prev.slug}"><small>← 이전 프로젝트</small><b>${prev.name}</b></a>
+      <a href="#project-${next.slug}"><small>다음 프로젝트 →</small><b>${next.name}</b></a></div></div></section>`;
+  const head=`<section class="cs-hero"><div class="wrap">
+      <a class="back" href="#projects">← 전체 프로젝트</a>
+      <div class="top"><div>
+        <span class="pill">${p.role}</span>
+        <h1>${p.name}</h1><p class="tagline">${p.tagline}</p><p class="cs-sum">${p.summary}</p>
+        ${p.award?`<p class="award pill" style="background:transparent;border:1px solid var(--line);color:var(--fg-2);white-space:normal">${p.award}</p>`:''}
+      </div>${cover(p,true)}</div>
+      <dl class="meta"><div><dt>기간</dt><dd>${p.period}</dd></div><div><dt>팀</dt><dd>${p.team}</dd></div><div><dt>역할</dt><dd>${p.role}</dd></div></dl>
+      ${p.stack.length?`<div class="stack-row"><span class="lbl">기술</span><div class="tags">${p.stack.map(t=>`<span class="tag">${t}</span>`).join('')}</div></div>`:''}
+      ${linkRow(p)}
+    </div></section>`;
+  if(p.pending) return head+`<section class="band"><div class="wrap narrow"><div class="problem"><i></i><h2>상세 정리를 준비하고 있어요</h2><p>${p.summary}</p><p>문제 해결 과정과 아키텍처는 곧 추가됩니다.</p></div></div></section>`+pager;
+
+  const secs=[["overview","개요"],["features","주요 기능"]];
+  if(p.arch||p.archImg||p.archLead) secs.push(["arch","아키텍처"]);
+  secs.push(["work","내가 한 일"],["trouble","트러블슈팅"]);
+  if(p.ops) secs.push(["ops","운영 · 인프라"]);
+  if(p.retro&&p.retro.length) secs.push(["retro","회고"]);
+
+  return head+`
+  <nav class="toc" aria-label="목차"><div class="wrap">${secs.map(([id,t])=>`<button data-jump="sec-${id}">${t}</button>`).join('')}</div></nav>
+
+  <section id="sec-overview"><div class="wrap">
+    <div class="overview">
+      <div class="why">
+        <span class="eyebrow">Why</span>
+        <h2>왜 만들었나</h2>
+        ${p.quote?`<blockquote class="voice">“${p.quote}”</blockquote>`:''}
+        ${p.why.map(x=>`<p>${x}</p>`).join('')}
+        ${p.goal?`<p class="goal"><b>목표</b>${p.goal}</p>`:''}
+      </div>
+      <div class="res-wrap">
+        <span class="eyebrow">Highlights</span>
+        <h2>주요 성과</h2>
+        <ul class="hl">${p.highlights.map(([b,d])=>`<li><span class="ck" aria-hidden="true">✓</span><div><b>${b}</b>${d?`<p>${d}</p>`:''}</div></li>`).join('')}</ul>
+      </div>
+    </div>
+    ${p.tables?`<div class="ov-tables">${p.tables.map(x=>`<div class="ov-t"><h3>${x.t}</h3>${tblHTML(x)}${x.note?`<p class="tnote">${x.note}</p>`:''}</div>`).join('')}</div>`:''}
+  </div></section>
+
+  <section id="sec-features"><div class="wrap">
+    <div class="sec-head center"><span class="eyebrow">Features</span><h2>주요 기능</h2>${(p.fx||p.fxGroups)?'<p>화면을 누르면 크게 볼 수 있어요. 파란 배지는 제가 만든 API가 쓰이는 곳입니다.</p>':''}</div>
+    ${p.fxGroups?p.fxGroups.map(([g,list])=>`<div class="fx-group"><h3 class="fx-gh">${g}</h3>${fxHTML(list)}</div>`).join(''):p.fx?fxHTML(p.fx):`<div class="feat">${p.features.map(([h,d],k)=>`<div><span class="ic">${String(k+1).padStart(2,'0')}</span><h4>${h}</h4><p>${d}</p></div>`).join('')}</div>`}
+  </div></section>
+
+  ${(p.arch||p.archImg||p.archLead)?`<section id="sec-arch"><div class="wrap">
+    <div class="sec-head center"><span class="eyebrow">Architecture</span><h2>아키텍처</h2>${p.archLead?`<p>${p.archLead}</p>`:''}</div>
+    ${p.archImg?`<button type="button" class="arch-img" data-zoom="${p.archImg}" aria-label="아키텍처 크게 보기"><img src="${IMG[p.archImg]}" alt="${p.name} 아키텍처"></button>${p.archNote?`<p class="arch-legend">${p.archNote}</p>`:''}`:(p.arch?archHTML(p.arch):'')}
+    ${p.points&&p.points.length?`<div class="points">${p.points.map(([h,d],k)=>`<div><span class="no">${String(k+1).padStart(2,'0')}</span><h4>${h}</h4><p>${d}</p></div>`).join('')}</div>`:''}
+  </div></section>`:''}
+
+  <section id="sec-work" class="band"><div class="wrap">
+    <div class="sec-head"><span class="eyebrow">My role</span><h2>내가 한 일</h2></div>
+    <div class="work">${p.work.map(([h,sub,items])=>`<div><h4>${h}${sub?`<small>${sub}</small>`:''}</h4><ul>${items.map(x=>`<li>${x}</li>`).join('')}</ul></div>`).join('')}</div>
+  </div></section>
+
+  <section id="sec-trouble"><div class="wrap narrow" style="max-width:920px">
+    <div class="sec-head"><span class="eyebrow">Troubleshooting</span><h2>문제 해결</h2></div>
+    <div class="tr-list">${p.troubles.map(trHTML).join('')}</div>
+  </div></section>
+
+  ${p.ops?`<section id="sec-ops" class="band"><div class="wrap narrow" style="max-width:920px">
+    <div class="sec-head"><span class="eyebrow">Operations</span><h2>운영 · 인프라</h2></div>
+    <div class="tr-list">${p.ops.map(o=>`<article class="tr"><div class="tr-head"><h3>${o.t}</h3><p class="op-sub">${o.sub}</p>
+      <dl class="tr-sum"><dt>문제</dt><dd>${o.p}</dd><dt>해결</dt><dd>${o.tbl?tblHTML(o.tbl):''}<ul class="op-list">${o.s.map(x=>`<li>${x}</li>`).join('')}</ul></dd><dt>결과</dt><dd>${o.r}</dd></dl></div></article>`).join('')}</div>
+  </div></section>`:''}
+
+  ${p.retro&&p.retro.length?`<section id="sec-retro"><div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Retrospective</span><h2>회고</h2>${p.retroIntro?`<p>${p.retroIntro}</p>`:''}</div>
+    <div class="retro">${p.retro.map((r,k)=>`<div><span class="r-no">${String(k+1).padStart(2,'0')}</span><h4>${r.t}</h4>${r.body.map(x=>`<p>${x}</p>`).join('')}${r.imp?`<p class="next"><b>개선 방향</b>${r.imp}</p>`:''}<p class="take">${r.take}</p></div>`).join('')}</div>
+  </div></section>`:''}
+  ${pager}`;
+}
+
+function viewAbout(){
+  return `<section style="padding-block:72px 96px"><div class="wrap">
+    <div class="about-top">
+      <div class="photo"><img src="${IMG.profile}" alt="장효원 프로필 사진"></div>
+      <div class="lead">
+        <span class="eyebrow">About me</span>
+        <h1>맡은 일은 끝까지 마무리하는 백엔드 개발자</h1>
+        <p>3학년 2학기, 마감이 임박한 공모전 프로젝트 캥거루틴과 싹싹푸드, 그리고 학교 장학금 시스템 SSUport 개발을 한 학기에 함께 맡았습니다. 캥거루틴에서는 팀장으로 MSA 전환과 배포를 이끌어야 했습니다.</p>
+        <p>팀 프로젝트는 제가 멈추면 팀 전체가 멈춥니다. 그래서 팀원들에게 피해가 가지 않도록 프로젝트 일정을 학점보다 먼저 지켰고, 그렇다고 수업도 놓지 않으려고 남은 시간을 쪼개 22학점을 들었습니다.</p>
+        <div class="proof"><span class="proof-k">2025-2학기</span><ul><li><b>프로젝트 3개</b> 동시 진행</li><li><b>공모전 특별상 2회</b></li><li><b>22학점 · 평점 4.46</b></li></ul></div>
+        <p>그 학기에 두 공모전 모두 특별상을 받았고, SSUport는 다음 학기 시범 도입까지 이어졌습니다. 맡은 일을 끝까지 해내는 것, 그게 제가 함께 일하는 사람들에게 드릴 수 있는 가장 확실한 약속이라고 생각합니다.</p>
+        <dl class="facts">
+          <div><dt>학력</dt><dd>숭실대학교 컴퓨터학부 · 2027.12 졸업 예정</dd></div>
+          <div><dt>학점</dt><dd>4.12 / 4.5</dd></div>
+          <div><dt>어학</dt><dd>TOEIC 940 (LC 460 · RC 480) · OPIc IH</dd></div>
+          <div><dt>자격증</dt><dd>SQLD · SAP Certified Back-End Developer (ABAP Cloud)</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="band"><div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Experience</span><h2>활동</h2></div>
+    <div class="tl">
+      <div class="tl-item"><time>2025.09 – 현재</time><div><h4>숭실대학교 총학생회 IT지원위원회</h4><p class="r">백엔드 파트 · 특별장학금 TF · 인프라 TF</p><ul><li>특별장학금 통합 시스템 SSUport 백엔드 개발 · 운영, 2026-2학기 전체 도입</li><li>위원회 공용 AWS 계정 IAM Terraform 코드화, 운영 DB 백업 이중화</li></ul></div></div>
+      <div class="tl-item"><time>2025.03 – 2025.11</time><div><h4>구름톤 유니브 4기 (카카오 × 구름)</h4><p class="r">Spring 파트 수료</p><ul><li>가온지부 연합 프로젝트 NEXUS — 서울메이트 백엔드</li><li>시즌톤 참여</li></ul></div></div>
+      <div class="tl-item"><time>2024.03 – 2025.08</time><div><h4>대학생 IT 연합 동아리 UMC 6 · 8기</h4><p class="r">6기 Android · 8기 Spring 파트 수료</p><ul><li>6기: LCK 팬 앱 Every.LOL 사용자 · 관리자 앱 개발, 2025.05.13 출시 후 서버로 전환</li><li>8기: 제주 게스트하우스 예약 앱 숨터 백엔드</li></ul></div></div>
+    </div>
+    <div class="two" style="margin-top:72px">
+      <div class="mini"><h3>수상</h3><div class="tl">
+        <div class="tl-item"><time>K-PaaS</time><div><h4>제9회 K-PaaS 활용 공모전 특별상</h4><p class="r">네이버클라우드상 · 캥거루틴</p></div></div>
+        <div class="tl-item"><time>K-PaaS</time><div><h4>제9회 K-PaaS 활용 공모전 특별상</h4><p class="r">한국클라우드컴퓨팅연구조합 이사장상 · 싹싹푸드</p></div></div>
+        <div class="tl-item"><time>UNITHON</time><div><h4>숭실대학교 해커톤 우수상</h4><p class="r">스파르탄SW교육원 원장상 · FANMADE</p></div></div>
+      </div></div>
+      <div class="mini"><h3>자격증 · 어학</h3><div class="tl">
+        <div class="tl-item"><time>2025.12.12</time><div><h4>SQLD</h4><p class="r">SQL 개발자</p></div></div>
+        <div class="tl-item"><time>2025.12.12</time><div><h4>SAP Certified Back-End Developer</h4><p class="r">ABAP Cloud</p></div></div>
+        <div class="tl-item"><time>2026.08.23</time><div><h4>TOEIC 940</h4><p class="r">LC 460 · RC 480</p></div></div>
+        <div class="tl-item"><time>2026.10.11</time><div><h4>OPIc IH</h4></div></div>
+      </div></div>
+    </div>
+  </div></section>
+  ${ctaBand()}`;
+}
+
+function viewSkills(){
+  const skills=[
+    {h:"Backend",lv:[["상",["Java","Spring Boot","Spring Data JPA","MySQL/MariaDB"]],["중",["Spring Security","JWT/OAuth2","Flyway","QueryDSL"]],["경험",["Redis","WebSocket(STOMP)","Spring Cloud Gateway","OpenFeign"]]],items:[
+      "<b>Spring Security · JWT</b> — Gateway에 JWT 인증 필터를 두어 공개 경로를 뺀 모든 요청을 한 곳에서 인증했습니다 <em>캥거루틴</em>",
+      "<b>QueryDSL</b> — 검색어 · 정렬 조건에 따라 달라지는 지원자 목록 조회를 동적 쿼리로 구현했습니다 <em>SSUport</em>",
+      "<b>Flyway</b> — 운영 DB 스키마 변경을 버전 파일로 관리했습니다 <em>SSUport</em>",
+      "<b>Redis · WebSocket(STOMP)</b> — STOMP로 실시간 채팅을 만들고, Redis Pub/Sub으로 서버 간 메시지를 전달했습니다 <em>서울메이트</em>",
+      "<b>Spring Cloud Gateway · OpenFeign</b> — Gateway 하나로 서비스 3개의 라우팅을 묶고, 서비스 간 데이터는 OpenFeign으로 호출했습니다 <em>캥거루틴</em><em>싹싹푸드</em>"]},
+    {h:"Infra",lv:[["상",["Docker"]],["중",["AWS (EC2 · S3 · IAM · CloudWatch)","GitHub Actions"]],["경험",["AWS (Lambda · EventBridge · CloudFront · Route 53 · ACM · SSM)","Terraform","Kubernetes","NCP (NKS · SourcePipeline)"]]],items:[
+      "<b>AWS S3</b> — Presigned URL로 브라우저가 서류를 S3에 직접 올리도록 구현했습니다 <em>SSUport</em>",
+      "<b>AWS CloudWatch</b> — API별 p95 · 오류율 · RPS 대시보드를 구축했습니다 <em>SSUport</em>",
+      "<b>AWS EventBridge · Lambda</b> — EC2 상태 변경을 감지해 Discord로 개발 서버 시작 · 종료 알림을 보내도록 구현했습니다 <em>SSUport</em>",
+      "<b>AWS CloudFront</b> — CloudFront를 HTTPS 진입점으로 두어 배포 화면에서 막히던 API 요청을 해결했습니다 <em>유록</em>",
+      "<b>Terraform</b> — 기존 IAM 리소스 58개를 권한 변경 없이 코드로 옮겼습니다 <em>SSUport</em>",
+      "<b>Kubernetes</b> — NKS 매니페스트를 작성하고, 2 vCore 노드에 맞춰 자원과 헬스체크를 설계했습니다 <em>캥거루틴</em><em>싹싹푸드</em>",
+      "<b>NCP SourcePipeline</b> — 푸시 한 번에 4개 서비스가 NKS에 배포되도록 CI/CD를 구축했습니다 <em>캥거루틴</em>"]},
+    {h:"외부 연동 · 결제",lv:[["",["PortOne","KakaoPay","Google Drive API","Gemini API","Vertex AI (Imagen)","Jsoup"]]],items:[
+      "<b>PortOne</b> — 웹훅을 받으면 결제를 다시 조회해 서버가 직접 검증하도록 구현했습니다 <em>싹싹푸드</em>",
+      "<b>KakaoPay</b> — 결제가 끝나면 앱으로 돌아와 예약까지 확정되는 결제 흐름을 구현했습니다 <em>숨터</em>",
+      "<b>Google Drive API</b> — 제출 서류를 Drive에 자동으로 백업했습니다 <em>SSUport</em>",
+      "<b>Gemini API</b> — 추모글과 사진으로 추억 그림을 생성했습니다 <em>유록</em>",
+      "<b>Vertex AI (Imagen)</b> — 키워드로 응원 광고 시안 이미지를 생성했습니다 <em>FANMADE</em>",
+      "<b>Jsoup</b> — 네이버 e스포츠 페이지를 파싱해 경기 결과를 자동으로 동기화했습니다 <em>Every.LOL</em>"]},
+    {h:"Android",lv:[["",["Kotlin"]]],items:[
+      "<b>Kotlin</b> — 경기 일정 · 팀 순위 화면을 만들어 앱을 출시했습니다 <em>Every.LOL</em>"]}
+  ];
+  return `<section style="padding-block:72px 96px"><div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Skills</span><h2>기술 경험</h2></div>
+    <ul class="lv-legend"><li><span class="lv-b lv-hi">상</span>여러 프로젝트에서 반복적으로 사용했어요</li><li><span class="lv-b lv-mid">중</span>프로젝트에서 직접 구현해 봤어요</li><li><span class="lv-b lv-exp">경험</span>사용해 봤고 기본 사용법을 알아요</li></ul>
+    <div class="skills">${skills.map(k=>`<div class="skill"><div><h3>${k.h}</h3><dl class="lv">${k.lv.map(([l,tags])=>`<div class="lv-row">${l?`<dt class="lv-${l==='상'?'hi':l==='중'?'mid':'exp'}">${l}</dt>`:''}<dd class="tags">${tags.map(t=>`<span class="tag">${t}</span>`).join('')}</dd></div>`).join('')}</dl></div><ul>${k.items.map(x=>`<li>${x}</li>`).join('')}</ul></div>`).join('')}</div>
+  </div></section>
+
+`;
+}
+
+function viewContact(){
+  return `<section class="contact-hero"><div class="wrap">
+    <span class="eyebrow">Contact</span>
+    <h1>함께 일할 기회를<br><em>기다리고 있습니다.</em></h1>
+    <p class="lead">메일이나 전화로 연락 주시면 감사하겠습니다.</p>
+    <div class="channels">
+      <div class="channel"><span class="ch-ic">${ICON.mail}</span><small>EMAIL</small><b id="mail">ally0204@naver.com</b><div class="act"><button type="button" id="copyMail">주소 복사</button><a href="mailto:ally0204@naver.com">메일 쓰기</a></div></div>
+      <div class="channel"><span class="ch-ic">${ICON.phone}</span><small>PHONE</small><b id="phone">010-7228-9731</b><div class="act"><button type="button" id="copyPhone">번호 복사</button><a href="tel:01072289731">전화 걸기</a></div></div>
+      <div class="channel"><span class="ch-ic">${ICON.gh}</span><small>GITHUB</small><b>@hyowon0204</b><div class="act"><a href="https://github.com/hyowon0204" target="_blank" rel="noopener">GitHub 열기 ↗</a></div></div>
+      <div class="channel"><span class="ch-ic ts">${ICON.ts}</span><small>BLOG</small><b>ally0204.tistory.com</b><div class="act"><a href="https://ally0204.tistory.com" target="_blank" rel="noopener">블로그 열기 ↗</a></div></div>
+    </div>
+  </div></section>
+  <section class="band"><div class="wrap">
+    <div class="toolbar" style="align-items:flex-end;margin-bottom:32px">
+      <div class="sec-head" style="margin:0"><span class="eyebrow">Blog</span><h2>최근 블로그 글</h2><p>공부하고 정리한 내용을 티스토리에 기록하고 있습니다.</p></div>
+      <a class="btn btn-ghost" href="https://ally0204.tistory.com" target="_blank" rel="noopener">블로그 전체 보기 ↗</a>
+    </div>
+    <ul class="plist">${POSTS.map(p=>`<li><a href="${p.u}" target="_blank" rel="noopener"><time>${p.d}</time><div class="pl-main"><div class="pl-top"><span class="ptag">${p.tag}</span><span class="pl-cat">${p.cat}</span></div><h3>${p.t}</h3><p>${p.ex}</p></div><span class="pl-go">${ICON.arrow}</span></a></li>`).join('')}</ul>
+  </div></section>`;
+}
+
+/* ---------------- ROUTER ---------------- */
+function route(){
+  const h=(location.hash||"#home").slice(1);
+  let html, nav="";
+  if(h==="projects"){html=viewProjects();nav="projects";}
+  else if(h.startsWith("project-")){html=viewProject(h.slice(8));nav="projects";}
+  else if(h==="about"){html=viewAbout();nav="about";}
+  else if(h==="skills"){html=viewSkills();nav="skills";}
+  else if(h==="contact"){html=viewContact();nav="contact";}
+  else html=viewHome();
+  app.innerHTML=html;
+  document.querySelectorAll("[data-nav]").forEach(a=>{ if(a.dataset.nav===nav) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
+  if(h==="projects") fillProjects();
+  document.querySelectorAll('section[id^="sec-"]').forEach((s,i)=>s.classList.toggle("band",i%2===1));
+  window.scrollTo(0,0);
+}
+app.addEventListener("click",e=>{
+  const z=e.target.closest("[data-zoom]"); if(z){openZoom(z.dataset.zoom,z.querySelector("img").alt);return;}
+  const c=e.target.closest(".chip"); if(c){state.filter=c.dataset.f;fillProjects();return;}
+  const j=e.target.closest("[data-jump]"); if(j){const el=document.getElementById(j.dataset.jump); if(el){const y=el.getBoundingClientRect().top+scrollY-120; scrollTo({top:y,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});} return;}
+  const cp={copyMail:["ally0204@naver.com","#mail","메일 주소"],copyPhone:["010-7228-9731","#phone","전화번호"]}[e.target.id];
+  if(cp){(navigator.clipboard?navigator.clipboard.writeText(cp[0]):Promise.reject()).then(()=>toast(cp[2]+"를 복사했어요")).catch(()=>{const r=document.createRange();r.selectNodeContents($(cp[1]));const s=getSelection();s.removeAllRanges();s.addRange(r);toast("선택했어요. 복사해서 써주세요");});}
+});
+app.addEventListener("change",e=>{ if(e.target.id==="sortSel"){state.sort=e.target.value;fillProjects();} });
+const lb=$("#lightbox");
+function openZoom(k,alt){lb.querySelector("img").src=IMG[k];lb.querySelector("img").alt=alt;lb.hidden=false;lb.querySelector("button").focus();}
+function closeZoom(){lb.hidden=true;lb.querySelector("img").removeAttribute("src");}
+lb.addEventListener("click",closeZoom);
+addEventListener("keydown",e=>{if(e.key==="Escape"&&!lb.hidden)closeZoom();});
+function toast(m){const t=$("#toast");t.textContent=m;t.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>t.hidden=true,2000);}
+$("#themeBtn").addEventListener("click",()=>{
+  const r=document.documentElement; const cur=r.getAttribute("data-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");
+  r.setAttribute("data-theme",cur==="dark"?"light":"dark");
+});
+addEventListener("hashchange",route);
+route();
+</script>
+</body>
+</html>
