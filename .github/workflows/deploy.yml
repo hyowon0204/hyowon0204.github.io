@@ -1,0 +1,70 @@
+name: Deploy portfolio
+
+# 사이트를 올릴 때(push), 6시간마다, 그리고 Actions 탭에서 직접 실행할 때 배포합니다.
+# 배포 직전에 티스토리 RSS를 읽어 최신 글 6개를 posts.json으로 만듭니다.
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Fetch latest Tistory posts
+        continue-on-error: true
+        run: |
+          node --input-type=module <<'EOF'
+          import { writeFileSync } from "node:fs";
+          const res = await fetch("https://ally0204.tistory.com/rss", { headers: { "User-Agent": "Mozilla/5.0" } });
+          if (!res.ok) throw new Error("RSS " + res.status);
+          const xml = await res.text();
+          const cdata = (s = "") => s.replace(/^\s*<!\[CDATA\[/, "").replace(/\]\]>\s*$/, "").trim();
+          const decode = (s = "") => s
+            .replace(/&nbsp;/g, " ").replace(/&lt;/g, "<").replace(/&gt;/g, ">")
+            .replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, "&");
+          const pick = (block, tag) => { const m = block.match(new RegExp(`<${tag}>([\\s\\S]*?)</${tag}>`)); return m ? cdata(m[1]) : ""; };
+          const skip = new Set(["자바", "코테", "java"]);
+          const posts = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)].slice(0, 6).map(([, b]) => {
+            const cats = [...b.matchAll(/<category>([\s\S]*?)<\/category>/g)].map(m => decode(cdata(m[1])));
+            const cat = (cats[0] || "Blog").split("/")[0];
+            const tag = cats.slice(1).find(t => !/^\d+$/.test(t) && !skip.has(t.toLowerCase())) || cat;
+            const html = decode(pick(b, "description")).replace(/<(script|style|figure)[\s\S]*?<\/\1>/gi, " ");
+            const text = decode(html.replace(/<[^>]+>/g, " ")).replace(/\s+/g, " ").trim().replace(/^설명\s*/, "");
+            const d = new Date(new Date(pick(b, "pubDate")).getTime() + 9 * 3600e3);
+            const date = `${d.getUTCFullYear()}.${String(d.getUTCMonth() + 1).padStart(2, "0")}.${String(d.getUTCDate()).padStart(2, "0")}`;
+            return { u: pick(b, "link"), t: decode(pick(b, "title")), d: date, cat, tag, ex: text.length > 110 ? text.slice(0, 110) + "…" : text };
+          });
+          if (!posts.length) throw new Error("no posts");
+          writeFileSync("posts.json", JSON.stringify(posts, null, 2));
+          console.log(`posts.json: ${posts.length} posts, latest "${posts[0].t}"`);
+          EOF
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
